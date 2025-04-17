@@ -24,6 +24,12 @@ int main(void)
 			break;
 		}
 
+		if (strcmp(line, "exit") == 0)
+		{
+			free(line);
+			break;
+		}
+
 		args[0] = line;
 		args[1] = NULL;
 

@@ -6,19 +6,15 @@
  *
  * Return: 1 to continue, 0 to exit.
  */
-
 extern char **environ;
 
 int execute_command(char **args)
 {
-	pid_t pid;
-	int status;
+        pid_t pid;
+        int status;
 
-	if (args[0] == NULL)
-		return (1);
-
-	if (strcmp(args[0], "exit") == 0)
-		return (0);
+        if (args[0] == NULL)
+                return (1);
 
 	pid = fork();
 	if (pid == 0)
