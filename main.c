@@ -5,11 +5,20 @@
  *
  * Return: Always 0.
  */
+void handle_sigint(int _sig)
+{
+	(void)_sig;
+	write(STDOUT_FILENO, "\n$ ", 3);
+}
+
+
 int main(void)
 {
 	char *line;
 	int status = 1;
 	char *args[2];
+
+	signal(SIGINT, handle_sigint);
 
 	while (status)
 	{
@@ -28,6 +37,12 @@ int main(void)
 		{
 			free(line);
 			break;
+		}
+		if (strchr(line, '\x1b'))
+		{
+			fprintf(stderr, "./shell: No such file or directory\n");
+			free(line);
+			continue;
 		}
 
 		args[0] = line;
