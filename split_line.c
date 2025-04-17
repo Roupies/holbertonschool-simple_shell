@@ -8,26 +8,33 @@
  */
 char **split_line(char *line)
 {
-	char **tokens = NULL;
+	char **tokens;
 	char *token;
-	int bufsize = 0;
 	int i = 0;
+	int token_count = 0;
 
 	token = strtok(line, " ");
 	while (token != NULL)
 	{
-		tokens = realloc(tokens, sizeof(char *) * (bufsize + 2));
-		if (tokens == NULL)
-		{
-			perror("allocation");
-			exit(EXIT_FAILURE);
-		}
-		tokens[i++] = token;
-		bufsize++;
+		token_count++;
 		token = strtok(NULL, " ");
 	}
-	if (tokens)
-		tokens[i] = NULL;
+
+	tokens = malloc(sizeof(char *) * (token_count + 1));
+	if (!tokens)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
+	token = strtok(line, " ");
+	while (token != NULL)
+	{
+		tokens[i++] = token;
+		token = strtok(NULL, " ");
+	}
+
+	tokens[i] = NULL;
 
 	return (tokens);
 }
