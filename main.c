@@ -8,8 +8,8 @@
 int main(void)
 {
 	char *line;
-	char **args;
 	int status = 1;
+	char *args[2];
 
 	while (status)
 	{
@@ -24,11 +24,12 @@ int main(void)
 			break;
 		}
 
-		args = split_line(line);
+		args[0] = line;
+		args[1] = NULL;
+
 		status = execute_command(args);
 
 		free(line);
-		free(args);
 	}
 
 	return (0);

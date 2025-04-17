@@ -12,7 +12,6 @@
 int main(void); /* boucle principal */
 
 char *read_line(void);
-char **split_line(char *line);
 int execute_command(char **args);
 
 #endif
