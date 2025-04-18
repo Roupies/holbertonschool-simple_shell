@@ -1,9 +1,11 @@
 #include "shell.h"
 
+extern char **environ;
+
 /**
- * _get_path - Get the value of the PATH environment variable
+ * _get_path - Retrieves the PATH environment variable
  *
- * Return: Pointer to PATH string, or NULL if not found
+ * Return: Pointer to the PATH string or NULL if not found
  */
 char *_get_path(void)
 {
@@ -18,22 +20,22 @@ char *_get_path(void)
 }
 
 /**
- * find_in_path - Search for a command in the PATH
- * @command: Command name
+ * find_in_path - Searches for a command in the PATH directories
+ * @command: Name of the command
  *
- * Return: Full path if found (must be freed), or NULL
+ * Return: Full path to command (must be freed), or NULL if not found
  */
 char *find_in_path(char *command)
 {
-	char *path = _get_path();
-	char *path_copy, *dir, *full_path;
+	char *path, *path_copy, *dir, *full_path;
 	size_t len;
-
-	if (!path)
-		return (NULL);
 
 	if (_strchr(command, '/'))
 		return (_strdup(command));
+
+	path = _get_path();
+	if (!path)
+		return (NULL);
 
 	path_copy = _strdup(path);
 	if (!path_copy)
@@ -62,16 +64,15 @@ char *find_in_path(char *command)
 		free(full_path);
 		dir = strtok(NULL, ":");
 	}
-
 	free(path_copy);
 	return (NULL);
 }
 
 /**
- * execute_command - Execute a command using fork and execve
+ * execute_command - Executes a command using fork and execve
  * @args: Argument vector
  * @prog_name: Program name (from av[0])
- * @line_count: Line number (used for errors)
+ * @line_count: Line number for error messages
  */
 void execute_command(char **args, char *prog_name, int line_count)
 {
@@ -81,7 +82,8 @@ void execute_command(char **args, char *prog_name, int line_count)
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
-		fprintf(stderr, "%s: %d: %s: not found\n", prog_name, line_count, args[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n",
+				prog_name, line_count, args[0]);
 		return;
 	}
 
@@ -105,3 +107,4 @@ void execute_command(char **args, char *prog_name, int line_count)
 		free(cmd_path);
 	}
 }
+
