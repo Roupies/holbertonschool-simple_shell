@@ -68,43 +68,36 @@ char *find_in_path(char *command)
 	return (NULL);
 }
 
-/**
- * execute_command - Executes a command using fork and execve
- * @args: Argument vector
- * @prog_name: Program name (from av[0])
- * @line_count: Line number for error messages
- */
-void execute_command(char **args, char *prog_name, int line_count)
+void execute_command(char **args, char *prog_name)
 {
-	pid_t pid;
-	char *cmd_path;
+    pid_t pid;
+    char *cmd_path;
 
-	cmd_path = find_in_path(args[0]);
-	if (!cmd_path)
-	{
-		fprintf(stderr, "%s: %d: %s: not found\n",
-				prog_name, line_count, args[0]);
-		return;
-	}
+    cmd_path = find_in_path(args[0]);
+    if (!cmd_path)
+    {
+        fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
+        return;
+    }
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		free(cmd_path);
-		return;
-	}
+    pid = fork();
+    if (pid == -1)
+    {
+        perror("fork");
+        free(cmd_path);
+        return;
+    }
 
-	if (pid == 0)
-	{
-		execve(cmd_path, args, environ);
-		perror("execve");
-		exit(127);
-	}
-	else
-	{
-		wait(NULL);
-		free(cmd_path);
-	}
+    if (pid == 0)
+    {
+        execve(cmd_path, args, environ);
+        perror("execve");
+        exit(127);
+    }
+    else
+    {
+        wait(NULL);
+        free(cmd_path);
+    }
 }
 

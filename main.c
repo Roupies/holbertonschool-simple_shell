@@ -13,7 +13,6 @@ int main(int ac, char **av)
 	size_t len = 0;
 	ssize_t nread;
 	char **args = NULL;
-	int line_count = 0;
 	int builtin_result;
 
 	(void)ac;
@@ -32,21 +31,27 @@ int main(int ac, char **av)
 			continue;
 		}
 
+		/* Check if the command is a builtin */
 		builtin_result = handle_builtins(args);
 		if (builtin_result == 1)
 		{
+			/* Builtin executed successfully, continue loop */
 			continue;
 		}
 		else if (builtin_result == -1)
 		{
-			break; /* time to exit */
+			/* Exit command received, break loop */
+			break;
 		}
 
-		execute_command(args, av[0], line_count);
+		/* If it's not a builtin, search for the command in PATH and execute */
+		execute_command(args, av[0]);
+
+		/* Free the allocated arguments array */
 		free_args(args);
 	}
 
-	free(line);
+	free(line);  /* Free the input line */
 	return (0);
 }
 
@@ -55,7 +60,7 @@ int main(int ac, char **av)
  */
 void display_prompt(void)
 {
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))  /* Only show the prompt if it's interactive */
 		write(1, "$ ", 2);
 }
 
@@ -72,7 +77,7 @@ int handle_builtins(char **args)
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		free_args(args);
-		return (-1); /* signal to exit */
+		return (-1);  /* Return -1 to signal to exit the shell */
 	}
 
 	if (_strcmp(args[0], "env") == 0)
@@ -82,9 +87,9 @@ int handle_builtins(char **args)
 			printf("%s\n", environ[i]);
 		}
 		free_args(args);
-		return (1);
+		return (1);  /* Return 1 to indicate that a builtin command was executed */
 	}
 
-	return (0);
+	return (0);  /* Return 0 if no builtin command was executed */
 }
 
