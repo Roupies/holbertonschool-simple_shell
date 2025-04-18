@@ -1,11 +1,9 @@
 #include "shell.h"
 
-extern char **environ;
-
 /**
- * _get_path - Retrieves the PATH environment variable
+ * _get_path - Get the value of the PATH environment variable
  *
- * Return: Pointer to the PATH string or NULL if not found
+ * Return: Pointer to PATH string, or NULL if not found
  */
 char *_get_path(void)
 {
@@ -20,22 +18,23 @@ char *_get_path(void)
 }
 
 /**
- * find_in_path - Searches for a command in the PATH directories
- * @command: Name of the command
+ * find_in_path - Search for a command in the PATH
+ * @command: Command name
  *
- * Return: Full path to command (must be freed), or NULL if not found
+ * Return: Full path if found (must be freed), or NULL
  */
 char *find_in_path(char *command)
 {
-	char *path, *path_copy, *dir, *full_path;
+	char *path = _get_path();
+	char *path_copy, *dir, *full_path;
 	size_t len;
 
-	if (_strchr(command, '/'))
-		return (_strdup(command));
-
-	path = _get_path();
 	if (!path)
 		return (NULL);
+
+	/* If the command has a full path already, return it */
+	if (_strchr(command, '/'))
+		return (_strdup(command));
 
 	path_copy = _strdup(path);
 	if (!path_copy)
@@ -64,15 +63,16 @@ char *find_in_path(char *command)
 		free(full_path);
 		dir = strtok(NULL, ":");
 	}
+
 	free(path_copy);
 	return (NULL);
 }
 
 /**
- * execute_command - Executes a command using fork and execve
+ * execute_command - Execute a command using fork and execve
  * @args: Argument vector
  * @prog_name: Program name (from av[0])
- * @line_count: Line number for error messages
+ * @line_count: Line number (used for errors)
  */
 void execute_command(char **args, char *prog_name, int line_count)
 {
@@ -82,8 +82,7 @@ void execute_command(char **args, char *prog_name, int line_count)
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
-		fprintf(stderr, "%s: %d: %s: not found\n",
-				prog_name, line_count, args[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n", prog_name, line_count, args[0]);
 		return;
 	}
 
@@ -97,13 +96,15 @@ void execute_command(char **args, char *prog_name, int line_count)
 
 	if (pid == 0)
 	{
-		execve(cmd_path, args, environ);
-		perror("execve");
-		exit(127);
+		if (execve(cmd_path, args, environ) == -1)
+		{
+			perror("execve");
+			exit(127);  /* Exit status if command fails */
+		}
 	}
 	else
 	{
-		wait(NULL);
+		wait(NULL); /* Parent waits for child to finish */
 		free(cmd_path);
 	}
 }
