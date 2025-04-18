@@ -14,7 +14,6 @@ int main(int ac, char **av)
 	ssize_t nread;
 	char **args = NULL;
 	int line_count = 0;
-	int builtin_result;
 
 	(void)ac;
 
@@ -23,7 +22,12 @@ int main(int ac, char **av)
 		display_prompt();
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)
-			break;
+		{
+			free(line);
+			if (args)
+				free_args(args);
+			exit(0); /* Exit cleanly on Ctrl+D */
+		}
 
 		args = parse_line(line);
 		if (!args || !args[0])
@@ -32,21 +36,13 @@ int main(int ac, char **av)
 			continue;
 		}
 
-		builtin_result = handle_builtins(args);
-		if (builtin_result == 1)
-		{
+		if (handle_builtins(args))
 			continue;
-		}
-		else if (builtin_result == -1)
-		{
-			break; /* time to exit */
-		}
 
 		execute_command(args, av[0], line_count);
 		free_args(args);
 	}
 
-	free(line);
 	return (0);
 }
 
@@ -63,18 +59,20 @@ void display_prompt(void)
  * handle_builtins - Check if a command is a builtin and run it
  * @args: Argument vector
  *
- * Return: 1 if a builtin was executed, -1 if exit, 0 otherwise
+ * Return: 1 if a builtin was executed, 0 otherwise
  */
 int handle_builtins(char **args)
 {
 	int i;
 
+	/* Handle the 'exit' command */
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		free_args(args);
-		return (-1); /* signal to exit */
+		exit(0);
 	}
 
+	/* Handle the 'env' command */
 	if (_strcmp(args[0], "env") == 0)
 	{
 		for (i = 0; environ[i] != NULL; i++)
@@ -82,8 +80,9 @@ int handle_builtins(char **args)
 			printf("%s\n", environ[i]);
 		}
 		free_args(args);
-		return (1);
+		return 1;  /* Command was handled */
 	}
 
-	return (0);
+	return 0;  /* No builtin command handled */
 }
+
