@@ -24,9 +24,7 @@ int main(int ac, char **av)
 		if (nread == -1)
 		{
 			free(line);
-			if (args)
-				free_args(args);
-			exit(0); /* Exit cleanly on Ctrl+D */
+			break; /* Do not call exit() here, just break */
 		}
 
 		args = parse_line(line);
@@ -69,7 +67,7 @@ int handle_builtins(char **args)
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		free_args(args);
-		exit(0);
+		exit(0); /* Only here we use exit */
 	}
 
 	/* Handle the 'env' command */
@@ -80,9 +78,9 @@ int handle_builtins(char **args)
 			printf("%s\n", environ[i]);
 		}
 		free_args(args);
-		return 1;  /* Command was handled */
+		return 1;
 	}
 
-	return 0;  /* No builtin command handled */
+	return 0;
 }
 
