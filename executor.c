@@ -1,6 +1,23 @@
 #include "shell.h"
 
 /**
+ * _get_path - Get the value of the PATH environment variable
+ *
+ * Return: Pointer to PATH string, or NULL if not found
+ */
+char *_get_path(void)
+{
+	int i;
+
+	for (i = 0; environ[i]; i++)
+	{
+		if (_strncmp(environ[i], "PATH=", 5) == 0)
+			return (environ[i] + 5);
+	}
+	return (NULL);
+}
+
+/**
  * find_in_path - Search for a command in the PATH
  * @command: Command name
  *
@@ -8,31 +25,33 @@
  */
 char *find_in_path(char *command)
 {
-	char *path = getenv("PATH");
+	char *path = _get_path();
 	char *path_copy, *dir, *full_path;
 	size_t len;
 
 	if (!path)
 		return (NULL);
 
-	if (strchr(command, '/'))
-		return (strdup(command)); /* already a path */
+	if (_strchr(command, '/'))
+		return (_strdup(command));
 
-	path_copy = strdup(path);
+	path_copy = _strdup(path);
 	if (!path_copy)
 		return (NULL);
 
 	dir = strtok(path_copy, ":");
 	while (dir)
 	{
-		len = strlen(dir) + strlen(command) + 2;
+		len = _strlen(dir) + _strlen(command) + 2;
 		full_path = malloc(len);
 		if (!full_path)
 		{
 			free(path_copy);
 			return (NULL);
 		}
-		sprintf(full_path, "%s/%s", dir, command);
+		_strcpy(full_path, dir);
+		_strcat(full_path, "/");
+		_strcat(full_path, command);
 
 		if (access(full_path, X_OK) == 0)
 		{
@@ -47,7 +66,6 @@ char *find_in_path(char *command)
 	free(path_copy);
 	return (NULL);
 }
-
 
 /**
  * execute_command - Execute a command using fork and execve
