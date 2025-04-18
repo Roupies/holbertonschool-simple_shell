@@ -70,34 +70,34 @@ char *find_in_path(char *command)
 
 void execute_command(char **args, char *prog_name)
 {
-    pid_t pid;
-    char *cmd_path;
+	pid_t pid;
+	char *cmd_path;
 
-    cmd_path = find_in_path(args[0]);
-    if (!cmd_path)
-    {
-        fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
-        return;
-    }
+	cmd_path = find_in_path(args[0]);
+	if (!cmd_path)
+	{
+		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, args[0]);
+		return;
+	}
 
-    pid = fork();
-    if (pid == -1)
-    {
-        perror("fork");
-        free(cmd_path);
-        return;
-    }
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		free(cmd_path);
+		return;
+	}
 
-    if (pid == 0)
-    {
-        execve(cmd_path, args, environ);
-        perror("execve");
-        exit(127);
-    }
-    else
-    {
-        wait(NULL);
-        free(cmd_path);
-    }
+	if (pid == 0)
+	{
+		execve(cmd_path, args, environ);
+		perror("execve");
+		exit(127);
+	}
+	else
+	{
+		wait(NULL);
+		free(cmd_path);
+	}
 }
 
