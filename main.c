@@ -54,21 +54,35 @@ void display_prompt(void)
 }
 
 
+#include "shell.h"
+
 /**
  * handle_builtins - Check if a command is a builtin and run it
  * @args: Argument vector
  *
  * Return: 1 if a builtin was executed, 0 otherwise
  */
-
 int handle_builtins(char **args)
 {
+	int i;
+
+	/* Handle the 'exit' command */
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		free_args(args);
 		exit(0);
 	}
 
-	return (0);
-}
+	/* Handle the 'env' command */
+	if (_strcmp(args[0], "env") == 0)
+	{
+		for (i = 0; environ[i] != NULL; i++)
+		{
+			printf("%s\n", environ[i]);
+		}
+		free_args(args);
+		return 1;  /* Command was handled */
+	}
 
+	return 0;  /* No builtin command handled */
+}
