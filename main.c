@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	ssize_t nread;
 	char **args = NULL;
 	int line_count = 0;
-
+	int builtin_result;
 
 	(void)ac;
 
@@ -32,10 +32,16 @@ int main(int ac, char **av)
 			continue;
 		}
 
-		if (handle_builtins(args))
+		builtin_result = handle_builtins(args);
+		if (builtin_result == 1)
 		{
 			continue;
 		}
+		else if (builtin_result == -1)
+		{
+			break; /* time to exit */
+		}
+
 		execute_command(args, av[0], line_count);
 		free_args(args);
 	}
@@ -53,35 +59,31 @@ void display_prompt(void)
 		write(1, "$ ", 2);
 }
 
-#include "shell.h"
-
 /**
  * handle_builtins - Check if a command is a builtin and run it
  * @args: Argument vector
  *
- * Return: 1 if a builtin was executed, 0 otherwise
+ * Return: 1 if a builtin was executed, -1 if exit, 0 otherwise
  */
 int handle_builtins(char **args)
 {
-    int i;
+	int i;
 
-    /* Handle the 'exit' command */
-    if (_strcmp(args[0], "exit") == 0)
-    {
-        free_args(args);
-        exit(0);  /* Properly exit with status 0 */
-    }
+	if (_strcmp(args[0], "exit") == 0)
+	{
+		free_args(args);
+		return (-1); /* signal to exit */
+	}
 
-    /* Handle the 'env' command */
-    if (_strcmp(args[0], "env") == 0)
-    {
-        for (i = 0; environ[i] != NULL; i++)
-        {
-            printf("%s\n", environ[i]);
-        }
-        free_args(args);
-        return 1;  /* Command was handled */
-    }
+	if (_strcmp(args[0], "env") == 0)
+	{
+		for (i = 0; environ[i] != NULL; i++)
+		{
+			printf("%s\n", environ[i]);
+		}
+		free_args(args);
+		return (1);
+	}
 
-    return 0;  /* No builtin command handled */
+	return (0);
 }
