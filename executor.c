@@ -9,14 +9,14 @@ extern char **environ;
  */
 char *_get_path(void)
 {
-	int i;
+    int i;
 
-	for (i = 0; environ[i]; i++)
-	{
-		if (_strncmp(environ[i], "PATH=", 5) == 0)
-			return (environ[i] + 5);
-	}
-	return (NULL);
+    for (i = 0; environ[i]; i++)
+    {
+        if (_strncmp(environ[i], "PATH=", 5) == 0)
+            return (environ[i] + 5);
+    }
+    return (NULL);
 }
 
 /**
@@ -27,64 +27,53 @@ char *_get_path(void)
  */
 char *find_in_path(char *command)
 {
-	char *path, *path_copy, *dir, *full_path;
-	size_t len;
+    char *path, *path_copy, *dir, *full_path;
+    size_t len;
 
-	/* Si la commande contient un '/', c'est déjà un chemin valide */
-	if (_strchr(command, '/'))
-	{
-		/* Vérifie si le chemin est valide et exécutable */
-		if (access(command, X_OK) == 0)
-			return (_strdup(command));  // Commande valide
-		else
-			return (NULL);  // Commande invalide
-	}
+    // Si la commande contient déjà un '/' (chemin absolu ou relatif)
+    if (_strchr(command, '/'))
+        return (_strdup(command));  // Retourne la commande telle quelle
 
-	/* Récupère la variable d'environnement PATH */
-	path = _get_path();
-	if (!path)
-		return (NULL);
+    // Recherche de la variable PATH
+    path = _get_path();
+    if (!path)
+        return (NULL);  // Si PATH est absent
 
-	/* Duplique la chaîne PATH pour la manipuler */
-	path_copy = _strdup(path);
-	if (!path_copy)
-		return (NULL);
+    // Dupliquer le PATH pour le manipuler sans altérer la variable
+    path_copy = _strdup(path);
+    if (!path_copy)
+        return (NULL);  // En cas d'échec d'allocation
 
-	/* Tokenize la chaîne PATH pour séparer les répertoires */
-	dir = strtok(path_copy, ":");
-	while (dir)
-	{
-		/* Ignore les répertoires vides */
-		if (strlen(dir) == 0)
-		{
-			dir = strtok(NULL, ":");
-			continue;
-		}
+    // Parcourir les répertoires du PATH
+    dir = strtok(path_copy, ":");
+    while (dir)
+    {
+        len = _strlen(dir) + _strlen(command) + 2;  // Calculer la taille du chemin complet
+        full_path = malloc(len);
+        if (!full_path)
+        {
+            free(path_copy);
+            return (NULL);  // Échec d'allocation
+        }
 
-		len = _strlen(dir) + _strlen(command) + 2;
-		full_path = malloc(len);
-		if (!full_path)
-		{
-			free(path_copy);
-			return (NULL);
-		}
+        // Construire le chemin complet
+        _strcpy(full_path, dir);
+        _strcat(full_path, "/");
+        _strcat(full_path, command);
 
-		_strcpy(full_path, dir);
-		_strcat(full_path, "/");
-		_strcat(full_path, command);
+        // Vérifier si le fichier est exécutable
+        if (access(full_path, X_OK) == 0)
+        {
+            free(path_copy);
+            return (full_path);  // Commande trouvée, retourner le chemin complet
+        }
 
-		/* Vérifie si le fichier est exécutable */
-		if (access(full_path, X_OK) == 0)
-		{
-			free(path_copy);
-			return (full_path);
-		}
+        free(full_path);  // Libérer le chemin en cas d'échec
+        dir = strtok(NULL, ":");  // Passer au répertoire suivant
+    }
 
-		free(full_path);
-		dir = strtok(NULL, ":");
-	}
-	free(path_copy);
-	return (NULL);
+    free(path_copy);  // Libérer la copie du PATH
+    return (NULL);  // La commande n'a pas été trouvée
 }
 
 /**
@@ -95,40 +84,42 @@ char *find_in_path(char *command)
  */
 void execute_command(char **args, char *prog_name, int line_count)
 {
-	pid_t pid;
-	char *cmd_path;
+    pid_t pid;
+    char *cmd_path;
 
-	/* Trouve le chemin complet de la commande */
-	cmd_path = find_in_path(args[0]);
-	if (!cmd_path)
-	{
-		fprintf(stderr, "%s: %d: %s: not found\n",
-				prog_name, line_count, args[0]);
-		return;
-	}
+    // Trouver le chemin complet de la commande
+    cmd_path = find_in_path(args[0]);
+    if (!cmd_path)
+    {
+        // Si la commande n'a pas été trouvée, afficher une erreur et retourner
+        fprintf(stderr, "%s: %d: %s: not found\n", prog_name, line_count, args[0]);
+        return;  // Retourner sans fork ni execve
+    }
 
-	/* Crée un nouveau processus avec fork */
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		free(cmd_path);
-		return;
-	}
+    // Créer un nouveau processus avec fork
+    pid = fork();
+    if (pid == -1)
+    {
+        // Si fork échoue, afficher une erreur et libérer la mémoire allouée
+        perror("fork");
+        free(cmd_path);
+        return;
+    }
 
-	/* Dans le processus enfant */
-	if (pid == 0)
-	{
-		/* Exécute la commande */
-		execve(cmd_path, args, environ);
-		perror("execve");
-		exit(127);
-	}
-	else
-	{
-		/* Dans le processus parent */
-		wait(NULL);
-		free(cmd_path);
-	}
+    if (pid == 0)
+    {
+        // Processus enfant : exécuter la commande avec execve
+        execve(cmd_path, args, environ);
+        // Si execve échoue, afficher une erreur
+        perror("execve");
+        exit(127);  // Exit avec code d'erreur 127
+    }
+    else
+    {
+        // Processus parent : attendre que l'enfant termine
+        wait(NULL);
+        free(cmd_path);  // Libérer le chemin une fois l'exécution terminée
+    }
 }
+
 
