@@ -30,17 +30,21 @@ char *find_in_path(char *command)
 	char *path, *path_copy, *dir, *full_path;
 	size_t len;
 
+	/* If the command contains '/', it's already a valid path */
 	if (_strchr(command, '/'))
 		return (_strdup(command));
 
+	/* Get the PATH environment variable */
 	path = _get_path();
 	if (!path)
 		return (NULL);
 
+	/* Duplicate the PATH string to work with */
 	path_copy = _strdup(path);
 	if (!path_copy)
 		return (NULL);
 
+	/* Tokenize the PATH string to separate directories */
 	dir = strtok(path_copy, ":");
 	while (dir)
 	{
@@ -48,23 +52,27 @@ char *find_in_path(char *command)
 		full_path = malloc(len);
 		if (!full_path)
 		{
-			free(path_copy);
+			free(path_copy);  // Free before returning NULL
 			return (NULL);
 		}
+
+		/* Construct the full path to the command */
 		_strcpy(full_path, dir);
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
 
+		/* Check if the command is executable */
 		if (access(full_path, X_OK) == 0)
 		{
-			free(path_copy);
+			free(path_copy);  // Free before returning the full path
 			return (full_path);
 		}
 
 		free(full_path);
 		dir = strtok(NULL, ":");
 	}
-	free(path_copy);
+
+	free(path_copy);  // Free before returning NULL
 	return (NULL);
 }
 
@@ -79,6 +87,7 @@ void execute_command(char **args, char *prog_name, int line_count)
 	pid_t pid;
 	char *cmd_path;
 
+	/* Find the full path of the command */
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
@@ -87,7 +96,9 @@ void execute_command(char **args, char *prog_name, int line_count)
 		return;
 	}
 
+	/* Create a new process using fork */
 	pid = fork();
+
 	if (pid == -1)
 	{
 		perror("fork");
@@ -95,14 +106,17 @@ void execute_command(char **args, char *prog_name, int line_count)
 		return;
 	}
 
+	/* In the child process */
 	if (pid == 0)
 	{
+		/* Execute the command */
 		execve(cmd_path, args, environ);
 		perror("execve");
 		exit(127);
 	}
 	else
 	{
+		/* In the parent process */
 		wait(NULL);
 		free(cmd_path);
 	}
