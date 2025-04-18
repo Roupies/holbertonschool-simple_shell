@@ -21,8 +21,6 @@ void free_args(char **args);
 /* executor.c */
 void execute_command(char **args, char *prog_name, int line_count);
 
-/* utils.c */
-int _strcmp(char *s1, char *s2);
 
 /* builtins.c */
 int handle_builtins(char **args);
