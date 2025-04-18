@@ -4,11 +4,11 @@
  * parse_line - Splits a line into arguments
  * @line: Input string
  *
- * Return: Array of strings (arguments) or NULL on failure
+ * Return: Array of strings (arguments)
  */
 char **parse_line(char *line)
 {
-	char *token = NULL, **args = NULL, **tmp = NULL;
+	char *token = NULL, **args = NULL;
 	int bufsize = 64, i = 0;
 
 	args = malloc(sizeof(char *) * bufsize);
@@ -18,27 +18,13 @@ char **parse_line(char *line)
 	token = strtok(line, " \t\n");
 	while (token)
 	{
-		args[i] = _strdup(token);
-		if (!args[i])
-		{
-			while (i--)
-				free(args[i]);
-			free(args);
-			return (NULL);
-		}
-		i++;
+		args[i++] = strdup(token);
 		if (i >= bufsize)
 		{
 			bufsize += 64;
-			tmp = realloc(args, sizeof(char *) * bufsize);
-			if (!tmp)
-			{
-				while (i--)
-					free(args[i]);
-				free(args);
+			args = realloc(args, sizeof(char *) * bufsize);
+			if (!args)
 				return (NULL);
-			}
-			args = tmp;
 		}
 		token = strtok(NULL, " \t\n");
 	}
