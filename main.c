@@ -38,9 +38,7 @@ int main(int ac, char **av)
 			continue;
 		}
 		else if (builtin_result == -1)
-		{
 			break; /* time to exit */
-		}
 
 		execute_command(args, av[0], line_count);
 		free_args(args);
@@ -73,18 +71,16 @@ int handle_builtins(char **args)
 	{
 		free_args(args);
 		return (-1); /* signal to exit */
+		exit(0);
 	}
 
 	if (_strcmp(args[0], "env") == 0)
 	{
 		for (i = 0; environ[i] != NULL; i++)
-		{
 			printf("%s\n", environ[i]);
-		}
 		free_args(args);
 		return (1);
 	}
 
 	return (0);
 }
-
