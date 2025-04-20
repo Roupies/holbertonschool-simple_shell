@@ -19,7 +19,7 @@ char **parse_line(char *line);
 void free_args(char **args);
 
 /* executor.c */
-void execute_command(char **args, char *prog_name, int line_count);
+void execute_command(char **args, char *prog_name); 
 
 
 /* builtins.c */
