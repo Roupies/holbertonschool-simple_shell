@@ -59,6 +59,7 @@ int main(int ac, char **av)
 	int builtin_result;
 
 	(void)ac;
+	(void)av;
 
 	signal(SIGINT, sigint_handler);
 
