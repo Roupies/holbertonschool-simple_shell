@@ -39,7 +39,10 @@ char *find_in_path(char *command)
 
 	path_copy = _strdup(path);
 	if (!path_copy)
+	{
+		perror("Error duplicating path");
 		return (NULL);
+	}
 
 	dir = strtok(path_copy, ":");
 	while (dir)
@@ -48,14 +51,16 @@ char *find_in_path(char *command)
 		full_path = malloc(len);
 		if (!full_path)
 		{
+			perror("Error allocating memory for full_path");
 			free(path_copy);
 			return (NULL);
 		}
+
 		_strcpy(full_path, dir);
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
 
-		if (access(full_path, X_OK) == 0)
+		if (access(full_path, F_OK) == 0 && access(full_path, X_OK) ==0)
 		{
 			free(path_copy);
 			return (full_path);
@@ -72,6 +77,12 @@ void execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *cmd_path;
+
+	if (args[0] == NULL)
+	{
+		fprintf(stderr, "%s: command not found\n", prog_name);
+		return;
+	}
 
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
@@ -90,14 +101,16 @@ void execute_command(char **args, char *prog_name)
 
 	if (pid == 0)
 	{
-		execve(cmd_path, args, environ);
-		perror("execve");
-		exit(127);
+		if (execve(cmd_path, args, environ) == -1)
+		{
+			perror("execve");
+			free(cmd_path);
+			exit(127);
+		}
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(pid, NULL, 0);
 		free(cmd_path);
 	}
 }
-
