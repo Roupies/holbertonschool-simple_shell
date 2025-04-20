@@ -1,7 +1,8 @@
 #include "shell.h"
 
 /**
- * sigint_handler - Send signial interrupt 
+ * sigint_handler - Send signial interrupt
+ *@sig: signal send
  */
 void sigint_handler(int sig)
 {
@@ -14,8 +15,8 @@ void sigint_handler(int sig)
  */
 void display_prompt(void)
 {
-        if (isatty(STDIN_FILENO))  /* Only show the prompt if it's interactive */
-                write(1, "$ ", 2);
+	if (isatty(STDIN_FILENO))
+		write(1, "$ ", 2);
 }
 
 /**
@@ -26,21 +27,51 @@ void display_prompt(void)
  */
 int handle_builtins(char **args)
 {
-        int i;
+	int i;
 
-        if (_strcmp(args[0], "exit") == 0)
-        {
-                return (-1); /* signal to exit */
-        }
+	if (_strcmp(args[0], "exit") == 0)
+	{
+		return (-1);
+	}
 
-        if (_strcmp(args[0], "env") == 0)
-        {
-                for (i = 0; environ[i] != NULL; i++)
-                        printf("%s\n", environ[i]);
-                return (1);  /* Return 1 to indicate that a builtin command was executed */
-        }
+	if (_strcmp(args[0], "env") == 0)
+	{
+		for (i = 0; environ[i] != NULL; i++)
+			printf("%s\n", environ[i]);
+		return (1);
+	}
+	return (0);
+}
 
-        return (0);  /* Return 0 if no builtin command was executed */
+/**
+ * handle_input - Parse and execute a line of input
+ * @line: The input line
+ * @av: Argument vector for program name
+ *
+ * Return: -1 if "exit" builtin is called, 0 otherwise
+ */
+int handle_input(char *line, char **av)
+{
+	char **args;
+	int builtin_result;
+
+	args = parse_line(line);
+	if (!args || !args[0])
+	{
+		free_args(args);
+		return (0);
+	}
+
+	builtin_result = handle_builtins(args);
+	if (builtin_result == 1)
+	{
+		free_args(args);
+		return (-1);
+	}
+
+	execute_command(args, av[0]);
+	free_args(args);
+	return (0);
 }
 
 /**
@@ -59,8 +90,6 @@ int main(int ac, char **av)
 	int builtin_result;
 
 	(void)ac;
-	(void)av;
-
 	signal(SIGINT, sigint_handler);
 
 	while (1)
@@ -70,34 +99,10 @@ int main(int ac, char **av)
 		if (nread == -1)
 			break;
 
-		args = parse_line(line);
-		if (!args || !args[0])
-		{
-			free_args(args);
-			continue;
-		}
-
-		/* Check if the command is a builtin */
-		builtin_result = handle_builtins(args);
-		if (builtin_result == 1)
-		{
-			free_args(args);
-			/* Builtin executed successfully, continue loop */
-			continue;
-		}
-		else if (builtin_result == -1)
-		{
-			free_args(args);
-			/* Exit command received, break loop */
+		if (handle_input(line, av) == -1)
 			break;
-			/* If it's not a builtin, search for the command in PATH and execute */
-		}
-		execute_command(args, av[0]);
-
-		/* Free the allocated arguments array */
-		free_args(args);
 	}
 
-	free(line);  /* Free the input line */
+	free(line);
 	return (0);
 }
