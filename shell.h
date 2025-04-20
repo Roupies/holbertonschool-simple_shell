@@ -14,14 +14,18 @@ extern char **environ;
 
 /* main.c */
 void display_prompt(void);
+void sigint_handler(int sig);
+int handle_input(char *line, char **av);
 
 /* parser.c */
 char **parse_line(char *line);
 void free_args(char **args);
 
 /* executor.c */
-void execute_command(char **args, char *prog_name); 
-
+void execute_command(char **args, char *prog_name);
+char *_get_path(void);
+char *create_full_path(char *path, char *command)
+char *find_in_path(char *command)
 
 /* builtins.c */
 int handle_builtins(char **args);
@@ -38,4 +42,3 @@ size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 
 #endif /* SHELL_H */
-
