@@ -1,5 +1,13 @@
 #include "shell.h"
 
+/**
+ * sigint_handler - Send signial interrupt 
+ */
+void sigint_handler(int sig)
+{
+	(void)sig;
+	write(STDOUT_FILENO, "\n$ ", 3);
+}
 
 /**
  * display_prompt - Print shell prompt
@@ -51,6 +59,8 @@ int main(int ac, char **av)
 	int builtin_result;
 
 	(void)ac;
+
+	signal(SIGINT, sigint_handler);
 
 	while (1)
 	{
