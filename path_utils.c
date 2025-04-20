@@ -48,7 +48,6 @@ char *create_full_path(char *path, char *command)
 char *find_in_path(char *command)
 {
 	char *path, *path_copy, *token, *full_path;
-	size_t len;
 
 	if (_strchr(command, '/'))
 		return (strdup(command));
@@ -60,7 +59,7 @@ char *find_in_path(char *command)
 	path_copy = strdup(path);
 	if (!path_copy)
 	{
-		perror("Erro duplicating path")
+		perror("Erro duplicating path");
 		return (NULL);
 	}
 

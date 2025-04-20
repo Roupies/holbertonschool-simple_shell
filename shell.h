@@ -24,8 +24,8 @@ void free_args(char **args);
 /* executor.c */
 void execute_command(char **args, char *prog_name);
 char *_get_path(void);
-char *create_full_path(char *path, char *command)
-char *find_in_path(char *command)
+char *create_full_path(char *path, char *command);
+char *find_in_path(char *command);
 
 /* builtins.c */
 int handle_builtins(char **args);

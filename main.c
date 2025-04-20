@@ -63,7 +63,7 @@ int handle_input(char *line, char **av)
 	}
 
 	builtin_result = handle_builtins(args);
-	if (builtin_result == 1)
+	if (builtin_result == -1)
 	{
 		free_args(args);
 		return (-1);
@@ -86,8 +86,6 @@ int main(int ac, char **av)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread;
-	char **args = NULL;
-	int builtin_result;
 
 	(void)ac;
 	signal(SIGINT, sigint_handler);
