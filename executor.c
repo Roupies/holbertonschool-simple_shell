@@ -1,5 +1,6 @@
 #include "shell.h"
 
+extern int last_exit_status;  /* <- on utilise la variable globale */
 
 /**
  * execute_command - Main function to execute a command.
@@ -13,25 +14,22 @@ int execute_command(char **args, char *prog_name)
 	char *cmd_path;
 	int status;
 
-	/* Check if no command is passed */
 	if (args[0] == NULL)
 	{
 		return (command_not_found(prog_name, args[0]));
 	}
 
-	/* Find the full path for the command */
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
 		return (command_not_found(prog_name, args[0]));
 	}
-	status = execute_in_fork(cmd_path, args);
 
-	last_exit_status = status;
+	status = execute_in_fork(cmd_path, args);
+	last_exit_status = status;  /* on met à jour la globale */
 
 	return (status);
 }
-
 /**
  * command_not_found - Handles the "command not found" error.
  * @prog_name: The name of the shell for error messages.
