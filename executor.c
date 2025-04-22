@@ -25,7 +25,7 @@ int execute_command(char **args, char *prog_name)
 	return (execute_in_fork(cmd_path, args));
 }
 
-/** 
+/**
  * command_not_found - Handles the "command not found" error.
  * @prog_name: The name of the shell for error messages.
  * @command: The command that was not found.
