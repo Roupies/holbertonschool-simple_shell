@@ -14,8 +14,7 @@ int execute_command(char **args, char *prog_name)
 	/* Check if no command is passed */
 	if (args[0] == NULL)
 	{
-		return (command_not_found(prog_name));
-	}
+		return (command_not_found(prog_name, args[0]));	}
 
 	/* Find the full path for the command */
 	cmd_path = find_in_path(args[0]);
@@ -23,11 +22,10 @@ int execute_command(char **args, char *prog_name)
 	{
 		return (command_not_found(prog_name, args[0]));
 	}
-
 	return (execute_in_fork(cmd_path, args));
 }
 
-/**
+/** 
  * command_not_found - Handles the "command not found" error.
  * @prog_name: The name of the shell for error messages.
  * @command: The command that was not found.
@@ -50,7 +48,7 @@ int command_not_found(char *prog_name, char *command)
 int execute_in_fork(char *cmd_path, char **args)
 {
 	pid_t pid;
-	int status;
+	int status = 0;
 
 	pid = fork();
 	if (pid == -1)

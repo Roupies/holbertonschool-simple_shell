@@ -23,16 +23,14 @@ char **parse_line(char *line);
 void free_args(char **args);
 
 /* executor.c */
-void execute_command(char **args, char *prog_name);
-void execute_in_fork(char *cmd_path, char **args, char *prog_name);
-void exec_command(char *cmd_path, char **args);
-void wait_for_child(pid_t pid);
-void handle_error(char *prog_name, char **args);
+int execute_command(char **args, char *prog_name);
+int command_not_found(char *prog_name, char *command);
+int execute_in_fork(char *cmd_path, char **args);
+int execute_in_child(char *cmd_path, char **args);
+int wait_for_child(pid_t pid, int status, char *cmd_path);
 
 /* builtins.c */
 int handle_builtins(char **args);
-
-char *find_in_path(char *command);
 
 /* String functions */
 char *_strchr(const char *s, int c);
@@ -42,6 +40,9 @@ int _strncmp(char *s1, char *s2, size_t n);
 char *_strcat(char *dest, const char *src);
 size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
+
+/* path_utils.c */
+char *find_in_path(char *command);
 
 #endif /* SHELL_H */
 
