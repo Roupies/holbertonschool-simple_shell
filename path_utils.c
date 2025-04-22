@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern char **environ;
 
 /**
  * _get_path - Retrieves the PATH environment variable
@@ -29,6 +28,7 @@ char *_get_path(void)
  *
  *Return:Full path to the command if found (must be freed),or NULL if not found
  */
+
 char *find_in_path(char *command)
 {
 	char *path, *path_copy, *token, *full_path;

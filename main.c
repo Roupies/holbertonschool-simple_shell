@@ -1,6 +1,5 @@
 #include "shell.h"
 
-extern char **environ;
 
 /**
  * display_prompt - Print shell prompt
