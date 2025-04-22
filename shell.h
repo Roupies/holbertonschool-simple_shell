@@ -24,9 +24,10 @@ void free_args(char **args);
 
 /* executor.c */
 void execute_command(char **args, char *prog_name);
-char *_get_path(void);
-char *create_full_path(char *path, char *command);
-char *find_in_path(char *command);
+void execute_in_fork(char *cmd_path, char **args, char *prog_name);
+void exec_command(char *cmd_path, char **args);
+void wait_for_child(pid_t pid);
+void handle_error(char *prog_name, char **args);
 
 /* builtins.c */
 int handle_builtins(char **args);
@@ -43,3 +44,4 @@ size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 
 #endif /* SHELL_H */
+
