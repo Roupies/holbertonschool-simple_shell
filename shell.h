@@ -24,6 +24,7 @@ void free_args(char **args);
 
 /* executor.c */
 int execute_command(char **args, char *prog_name);
+extern int last_exit_status;
 char *_get_path(void);
 char *create_full_path(char *path, char *command);
 char *find_in_path(char *command);
