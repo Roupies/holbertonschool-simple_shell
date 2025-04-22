@@ -25,7 +25,7 @@ char **parse_line(char *line)
 		for (j = 0; j < i; j++)
 			tmp[j] = args[j];
 		tmp[i] = strdup(token);
-		if(!tmp[i])
+		if (!tmp[i])
 		{
 			for (j = 0; j < i; j++)
 				free(tmp[j]);
