@@ -23,7 +23,7 @@ char **parse_line(char *line);
 void free_args(char **args);
 
 /* executor.c */
-void execute_command(char **args, char *prog_name);
+int execute_command(char **args, char *prog_name);
 char *_get_path(void);
 char *create_full_path(char *path, char *command);
 char *find_in_path(char *command);

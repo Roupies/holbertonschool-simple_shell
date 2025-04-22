@@ -5,7 +5,7 @@
  * @args: Arguments passed to the command
  * @prog_name: The name of the program (shell) for error messages
  */
-void execute_command(char **args, char *prog_name)
+int execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *cmd_path;
@@ -14,14 +14,14 @@ void execute_command(char **args, char *prog_name)
 	if (args[0] == NULL)
 	{
 		fprintf(stderr, "%s: command not found\n", prog_name);
-		exit(127);
+		return(127);
 	}
 
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
 		fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
-		exit(127);
+		return (127);
 	}
 
 	pid = fork();
@@ -29,7 +29,7 @@ void execute_command(char **args, char *prog_name)
 	{
 		perror("fork");
 		free(cmd_path);
-		exit(127);
+		return (127);
 	}
 
 	else if (pid == 0)
@@ -50,13 +50,13 @@ void execute_command(char **args, char *prog_name)
 		if (WIFEXITED(status))
 		{
 			int exit_status = WEXITSTATUS(status);
-			if (exit_status != 0)
-				exit(exit_status);
+			return (exit_status);
 		}
 		else if (WIFSIGNALED(status))
 		{
 			int signal_num = WTERMSIG(status);
-			exit(128 + signal_num);
+			return (128 + signal_num);
 		}
 	}
+	return (0);
 }
