@@ -1,0 +1,8 @@
+# Ignore tout
+*
+
+# Sauf ce qu'on veut suivre
+!.gitignore
+!main.c
+!README.md
+
