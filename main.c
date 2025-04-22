@@ -1,7 +1,5 @@
 #include "shell.h"
 
-int last_exit_status = 0;
-
 /**
  * display_prompt - Print shell prompt
  */

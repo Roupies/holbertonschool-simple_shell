@@ -16,7 +16,7 @@ int execute_command(char **args, char *prog_name)
 	/* Check if no command is passed */
 	if (args[0] == NULL)
 	{
-		return (command_not_found(prog_name, args[0]));	
+		return (command_not_found(prog_name, args[0]));
 	}
 
 	/* Find the full path for the command */
