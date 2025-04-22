@@ -1,5 +1,6 @@
 #include "shell.h"
 
+
 /**
  * execute_command - Main function to execute a command.
  * @args: Arguments passed to the command.
@@ -10,30 +11,25 @@
 int execute_command(char **args, char *prog_name)
 {
 	char *cmd_path;
+	int status;
 
 	/* Check if no command is passed */
 	if (args[0] == NULL)
 	{
-<<<<<<< HEAD
-		fprintf(stderr, "%s: command not found\n", prog_name);
-		return(127);
+		return (command_not_found(prog_name, args[0]));	
 	}
-=======
-		return (command_not_found(prog_name, args[0]));	}
->>>>>>> a9b06df15489a7167e17aba81a3f3c85950c6309
 
 	/* Find the full path for the command */
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
-<<<<<<< HEAD
-		fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
-		return (127);
-=======
 		return (command_not_found(prog_name, args[0]));
->>>>>>> a9b06df15489a7167e17aba81a3f3c85950c6309
 	}
-	return (execute_in_fork(cmd_path, args));
+	status = execute_in_fork(cmd_path, args);
+
+	last_exit_status = status;
+
+	return (status);
 }
 
 /**
@@ -66,11 +62,7 @@ int execute_in_fork(char *cmd_path, char **args)
 	{
 		perror("fork");
 		free(cmd_path);
-<<<<<<< HEAD
 		return (2);
-=======
-		return (127);
->>>>>>> a9b06df15489a7167e17aba81a3f3c85950c6309
 	}
 	else if (pid == 0)
 	{
@@ -78,24 +70,9 @@ int execute_in_fork(char *cmd_path, char **args)
 	}
 	else
 	{
-<<<<<<< HEAD
-		waitpid(pid, &status, 0);
-		free(cmd_path);
-
-		if (WIFEXITED(status))
-		{
-			int exit_status = WEXITSTATUS(status);
-			return (exit_status);
-		}
-		else if (WIFSIGNALED(status))
-		{
-			int signal_num = WTERMSIG(status);
-			return (128 + signal_num);
-		}
-=======
 		return (wait_for_child(pid, status, cmd_path));
->>>>>>> a9b06df15489a7167e17aba81a3f3c85950c6309
 	}
+
 	return (0);
 }
 
@@ -140,4 +117,3 @@ int wait_for_child(pid_t pid, int status, char *cmd_path)
 	}
 	return (0);
 }
-

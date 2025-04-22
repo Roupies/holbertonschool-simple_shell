@@ -11,6 +11,7 @@
 #include <signal.h>
 
 extern char **environ;
+extern int last_exit_status;
 
 /* main.c */
 void display_prompt(void);
@@ -24,17 +25,11 @@ void free_args(char **args);
 
 /* executor.c */
 int execute_command(char **args, char *prog_name);
-<<<<<<< HEAD
-extern int last_exit_status;
-char *_get_path(void);
-char *create_full_path(char *path, char *command);
-char *find_in_path(char *command);
-=======
 int command_not_found(char *prog_name, char *command);
 int execute_in_fork(char *cmd_path, char **args);
 int execute_in_child(char *cmd_path, char **args);
 int wait_for_child(pid_t pid, int status, char *cmd_path);
->>>>>>> a9b06df15489a7167e17aba81a3f3c85950c6309
+
 
 /* builtins.c */
 int handle_builtins(char **args);
