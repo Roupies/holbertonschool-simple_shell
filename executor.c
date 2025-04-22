@@ -9,18 +9,19 @@ void execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *cmd_path;
+	int status;
 
 	if (args[0] == NULL)
 	{
 		fprintf(stderr, "%s: command not found\n", prog_name);
-		return;
+		exit(127);
 	}
 
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
-		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, args[0]);
-		return;
+		fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
+		exit(127);
 	}
 
 	pid = fork();
@@ -28,7 +29,7 @@ void execute_command(char **args, char *prog_name)
 	{
 		perror("fork");
 		free(cmd_path);
-		return;
+		exit(127);
 	}
 
 	else if (pid == 0)
@@ -43,7 +44,19 @@ void execute_command(char **args, char *prog_name)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 		free(cmd_path);
+
+		if (WIFEXITED(status))
+		{
+			int exit_status = WEXITSTATUS(status);
+			if (exit_status != 0)
+				exit(exit_status);
+		}
+		else if (WIFSIGNALED(status))
+		{
+			int signal_num = WTERMSIG(status);
+			exit(128 + signal_num);
+		}
 	}
 }
