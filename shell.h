@@ -16,6 +16,7 @@ extern char **environ;
 void display_prompt(void);
 void sigint_handler(int sig);
 int handle_input(char *line, char **av);
+void handle_signal(int sig);
 
 /* parser.c */
 char **parse_line(char *line);

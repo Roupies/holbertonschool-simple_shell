@@ -31,8 +31,9 @@ void execute_command(char **args, char *prog_name)
 		return;
 	}
 
-	if (pid == 0)
+	else if (pid == 0)
 	{
+
 		if (execve(cmd_path, args, environ) == -1)
 		{
 			perror("execve");

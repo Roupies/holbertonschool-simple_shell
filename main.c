@@ -1,14 +1,6 @@
 #include "shell.h"
 
-/**
- * sigint_handler - Send signial interrupt
- *@sig: signal send
- */
-void sigint_handler(int sig)
-{
-	(void)sig;
-	write(STDOUT_FILENO, "\n$ ", 3);
-}
+extern char **environ;
 
 /**
  * display_prompt - Print shell prompt
@@ -16,7 +8,7 @@ void sigint_handler(int sig)
 void display_prompt(void)
 {
 	if (isatty(STDIN_FILENO))
-		write(1, "$ ", 2);
+		write(STDOUT_FILENO, "$ ", 2);
 }
 
 /**
@@ -88,7 +80,6 @@ int main(int ac, char **av)
 	ssize_t nread;
 
 	(void)ac;
-	signal(SIGINT, sigint_handler);
 
 	while (1)
 	{

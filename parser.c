@@ -8,33 +8,47 @@
  */
 char **parse_line(char *line)
 {
-	char *token = NULL, **args = NULL;
-	int bufsize = 64, i = 0;
-
-	args = malloc(sizeof(char *) * bufsize);
-	if (!args)
-		return (NULL);
+	char *token = NULL, **args = NULL, **tmp = NULL;
+	int i = 0, j;
 
 	token = strtok(line, " \t\n");
 	while (token)
 	{
-		args[i++] = strdup(token);
-		if (i >= bufsize)
+		tmp = malloc(sizeof(char *) * (i + 2));
+		if (!tmp)
 		{
-			bufsize += 64;
-			args = realloc(args, sizeof(char *) * bufsize);
-			if (!args)
-				return (NULL);
+			for (j = 0; j < i; j++)
+				free(args[j]);
+			free(args);
+			return (NULL);
 		}
+		for (j = 0; j < i; j++)
+			tmp[j] = args[j];
+		tmp[i] = strdup(token);
+		if(!tmp[i])
+		{
+			for (j = 0; j < i; j++)
+				free(tmp[j]);
+			free(tmp);
+			free(args);
+			return (NULL);
+		}
+		tmp[i + 1] = NULL;
+
+		free(args);
+		args = tmp;
+		i++;
+
 		token = strtok(NULL, " \t\n");
 	}
-	args[i] = NULL;
 	return (args);
 }
 
 /**
  * free_args - Frees an array of strings
  * @args: Arguments array
+ *
+ * Return: Nothing
  */
 void free_args(char **args)
 {
