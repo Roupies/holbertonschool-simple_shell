@@ -110,7 +110,5 @@ int main(int ac, char **av)
 			break;
 		}
 	}
-
-	free(line);
 	return (0);
 }
