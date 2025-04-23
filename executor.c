@@ -1,28 +1,29 @@
 #include "shell.h"
 
 /**
- * execute_command - Executes a command with arguments in a child process
+ * execute_command - Executes a command with argument in a child process
  * @args: Arguments passed to the command
- * @prog_name: The name of the shell program (used for error messages)
+ * @prog_name: The name of the program (shell) for error messages
  *
- * Return: Exit status of the command, or 127 if command not found or failed
+ * Return: Exit status of the command,
+ *         or 127 if command not found or failed to execute
  */
 int execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *cmd_path;
 	int status;
-	int exit_status;
-	int signal_num;
+	int exit_status = 0;
+	int signal_num = 0;
 
-	/* Check for null args */
+	/* Handle empty command */
 	if (!args || !args[0])
 	{
 		fprintf(stderr, "%s: command not found\n", prog_name);
 		return (127);
 	}
 
-	/* Get the full path of the command */
+	/* Locate command in PATH */
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
@@ -30,7 +31,7 @@ int execute_command(char **args, char *prog_name)
 		return (127);
 	}
 
-	/* Fork the process */
+	/* Fork to execute the command */
 	pid = fork();
 	if (pid == -1)
 	{
@@ -39,9 +40,9 @@ int execute_command(char **args, char *prog_name)
 		return (127);
 	}
 
-	/* Child process */
 	if (pid == 0)
 	{
+		/* Child process executes the command */
 		if (execve(cmd_path, args, environ) == -1)
 		{
 			perror("execve");
@@ -51,21 +52,24 @@ int execute_command(char **args, char *prog_name)
 	}
 	else
 	{
+		/* Parent waits for the child to finish */
 		waitpid(pid, &status, 0);
 		free(cmd_path);
 
-		if (WIFEXITED(status))
+		/* Check if child exited successfully or was killed by a signal */
+		if (status == 0)
 		{
-			exit_status = WEXITSTATUS(status);
-			return (exit_status);
+			/* Normal exit */
+			exit_status = 0;
 		}
-		else if (WIFSIGNALED(status))
+		else if (status > 0)
 		{
-			signal_num = WTERMSIG(status);
-			return (128 + signal_num);
+			/* Process terminated by a signal */
+			signal_num = status;  /* signal_num is directly the status in case of signal termination */
+			exit_status = 128 + signal_num;
 		}
 	}
 
-	return (0);
+	return (exit_status);
 }
 
