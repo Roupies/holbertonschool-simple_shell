@@ -47,7 +47,12 @@ int execute_command(char **args, char *prog_name)
 		{
 			perror("execve");
 			free(cmd_path);
-			exit(127);
+			if (errno == EACCES)
+				exit(126);
+			else if (errno == ENOENT)
+				exit(127);
+			else
+				exit(127);
 		}
 	}
 	else
@@ -68,5 +73,3 @@ int execute_command(char **args, char *prog_name)
 
 	return (exit_status);
 }
-
-
