@@ -37,7 +37,7 @@ int execute_command(char **args, char *prog_name)
 	{
 		perror("fork");
 		free(cmd_path);
-		return (127);
+		return (126);
 	}
 
 	if (pid == 0)

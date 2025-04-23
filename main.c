@@ -117,4 +117,3 @@ int main(int ac, char **av)
 	/* Retourner le statut de sortie de la dernière commande avant exit */
 	return (last_exit_status);
 }
-
