@@ -104,7 +104,6 @@ int main(int ac, char **av)
 		if (handle_input(line, av) == -1)
 			break;
 	}
-
 	free(line);
 	return (0);
 }
