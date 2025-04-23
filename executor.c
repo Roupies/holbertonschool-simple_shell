@@ -1,22 +1,22 @@
 #include "shell.h"
 
 /**
- * execute_command - Executes a command with argument in a child process
+ * execute_command - Executes a command with arguments in a child process
  * @args: Arguments passed to the command
- * @prog_name: The name of the program (shell) for error messages
+ * @prog_name: The name of the shell program (used for error messages)
  *
- * Return: Exit status of the command,
- *         or 127 if command not found or failed to execute
+ * Return: Exit status of the command
+ *         127 if command not found or execve fails
+ *         128 + signal number if terminated by a signal
  */
 int execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *cmd_path;
-	int status;
+	int status = 0;
 	int exit_status = 0;
-	int signal_num = 0;
 
-	/* Handle empty command */
+	/* Handle empty input or null command */
 	if (!args || !args[0])
 	{
 		fprintf(stderr, "%s: command not found\n", prog_name);
@@ -31,7 +31,7 @@ int execute_command(char **args, char *prog_name)
 		return (127);
 	}
 
-	/* Fork to execute the command */
+	/* Fork to create child process */
 	pid = fork();
 	if (pid == -1)
 	{
@@ -42,7 +42,7 @@ int execute_command(char **args, char *prog_name)
 
 	if (pid == 0)
 	{
-		/* Child process executes the command */
+		/* Child process: try to execute the command */
 		if (execve(cmd_path, args, environ) == -1)
 		{
 			perror("execve");
@@ -52,24 +52,19 @@ int execute_command(char **args, char *prog_name)
 	}
 	else
 	{
-		/* Parent waits for the child to finish */
+		/* Parent process: wait for the child */
 		waitpid(pid, &status, 0);
 		free(cmd_path);
 
-		/* Check if child exited successfully or was killed by a signal */
-		if (status == 0)
+		if (WIFEXITED(status))
 		{
-			/* Normal exit */
-			exit_status = 0;
+			exit_status = WEXITSTATUS(status);
 		}
-		else if (status > 0)
+		else if (WIFSIGNALED(status))
 		{
-			/* Process terminated by a signal */
-			signal_num = status;  /* signal_num is directly the status in case of signal termination */
-			exit_status = 128 + signal_num;
+			exit_status = 128 + WTERMSIG(status);
 		}
 	}
 
 	return (exit_status);
 }
-
