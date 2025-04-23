@@ -7,6 +7,7 @@
  *
  * Return: Exit status of the command
  *         127 if command not found or execve fails
+ *         126 if found but permission denied
  *         128 + signal number if terminated by a signal
  */
 int execute_command(char **args, char *prog_name)
@@ -31,13 +32,21 @@ int execute_command(char **args, char *prog_name)
 		return (127);
 	}
 
+	/* Check if the file is executable */
+	if (access(cmd_path, X_OK) != 0)
+	{
+		fprintf(stderr, "%s: %s: Permission denied\n", prog_name, args[0]);
+		free(cmd_path);
+		return (126);
+	}
+
 	/* Fork to create child process */
 	pid = fork();
 	if (pid == -1)
 	{
 		perror("fork");
 		free(cmd_path);
-		return (126);
+		return (127); /* Correction ici */
 	}
 
 	if (pid == 0)
@@ -68,3 +77,4 @@ int execute_command(char **args, char *prog_name)
 
 	return (exit_status);
 }
+
