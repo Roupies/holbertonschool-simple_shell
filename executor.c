@@ -1,9 +1,11 @@
 #include "shell.h"
 
 /**
- * execute_command - Executes a command with argument in a child process
+ * execute_command - Executes a command with arguments in a child process
  * @args: Arguments passed to the command
- * @prog_name: The name of the program (shell) for error messages
+ * @prog_name: The name of the shell program (used for error messages)
+ *
+ * Return: Exit status of the command, or 127 if command not found or failed
  */
 int execute_command(char **args, char *prog_name)
 {
@@ -13,14 +15,11 @@ int execute_command(char **args, char *prog_name)
 	int exit_status;
 	int signal_num;
 
-	if (args[0] == NULL)
-	{
-		fprintf(stderr, "%s: command not found\n", prog_name);
-		return(127);
-	}
+	if (args == NULL || args[0] == NULL)
+		return (127);
 
 	cmd_path = find_in_path(args[0]);
-	if (!cmd_path)
+	if (cmd_path == NULL)
 	{
 		fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
 		return (127);
@@ -34,9 +33,9 @@ int execute_command(char **args, char *prog_name)
 		return (127);
 	}
 
-	else if (pid == 0)
+	if (pid == 0)
 	{
-
+		/* Child process executes the command */
 		if (execve(cmd_path, args, environ) == -1)
 		{
 			perror("execve");
@@ -46,6 +45,7 @@ int execute_command(char **args, char *prog_name)
 	}
 	else
 	{
+		/* Parent process waits for child */
 		waitpid(pid, &status, 0);
 		free(cmd_path);
 
@@ -60,5 +60,7 @@ int execute_command(char **args, char *prog_name)
 			return (128 + signal_num);
 		}
 	}
+
 	return (0);
 }
+
