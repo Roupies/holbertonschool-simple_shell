@@ -99,10 +99,16 @@ int main(int ac, char **av)
 		display_prompt();
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)
+		{
+			free(line);
 			break;
+		}
 
 		if (handle_input(line, av) == -1)
+		{
+			free(line);
 			break;
+		}
 	}
 
 	free(line);
