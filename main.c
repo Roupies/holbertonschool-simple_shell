@@ -1,5 +1,6 @@
 #include "shell.h"
 
+int last_exit_status;
 
 /**
  * display_prompt - Print shell prompt
@@ -54,6 +55,13 @@ int handle_input(char *line, char **av)
 		return (0);
 	}
 
+	if (strcmp(args[0], "$?") == 0)
+	{
+		printf("%d\n", last_exit_status);
+		free_args(args);
+		return (0);
+	}
+
 	builtin_result = handle_builtins(args);
 	if (builtin_result == -1)
 	{
@@ -66,7 +74,7 @@ int handle_input(char *line, char **av)
 		return (0); /* Builtin executed, skip command execution */
 	}
 
-	execute_command(args, av[0]);
+	last_exit_status = execute_command(args, av[0]);
 	free_args(args);
 	return (0);
 }
