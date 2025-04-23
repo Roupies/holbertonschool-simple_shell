@@ -34,6 +34,14 @@ int handle_builtins(char **args)
 	return (0);
 }
 
+/**
+ * handle_input - Parse and execute a line of input
+ * @line: The input line from the user
+ * @av: Argument vector (used for program name in error messages)
+ *
+ * Return: -1 if "exit" builtin is called to terminate the shell,
+ *          0 otherwise
+ */
 int handle_input(char *line, char **av)
 {
 	char **args;
@@ -55,14 +63,13 @@ int handle_input(char *line, char **av)
 	else if (builtin_result == 1)
 	{
 		free_args(args);
-		return (0); /* <== ici le fix */
+		return (0); /* Builtin executed, skip command execution */
 	}
 
 	execute_command(args, av[0]);
 	free_args(args);
 	return (0);
 }
-
 
 /**
  * main - Entry point of the shell

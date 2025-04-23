@@ -30,7 +30,6 @@ char *find_in_path(char *command);
 
 /* builtins.c */
 int handle_builtins(char **args);
-
 char *find_in_path(char *command);
 
 /* String functions */

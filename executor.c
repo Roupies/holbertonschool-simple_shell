@@ -10,6 +10,8 @@ int execute_command(char **args, char *prog_name)
 	pid_t pid;
 	char *cmd_path;
 	int status;
+	int exit_status;
+	int signal_num;
 
 	if (args[0] == NULL)
 	{
@@ -49,12 +51,12 @@ int execute_command(char **args, char *prog_name)
 
 		if (WIFEXITED(status))
 		{
-			int exit_status = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 			return (exit_status);
 		}
 		else if (WIFSIGNALED(status))
 		{
-			int signal_num = WTERMSIG(status);
+			signal_num = WTERMSIG(status);
 			return (128 + signal_num);
 		}
 	}
