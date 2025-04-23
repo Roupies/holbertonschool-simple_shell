@@ -23,7 +23,7 @@ int handle_builtins(char **args)
 
 	if (_strcmp(args[0], "exit") == 0)
 	{
-		exit(0);
+		exit (2);
 	}
 
 	if (_strcmp(args[0], "env") == 0)
