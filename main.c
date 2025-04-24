@@ -9,9 +9,8 @@ int last_exit_status;  /* Variable globale pour stocker le statut de sortie */
 void display_prompt(void)
 {
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "$ ", 2);
+		write(STDOUT_FILENO, "(¬‿¬) " ,9);
 }
-
 /**
  * handle_builtins - Check if a command is a builtin and run it
  * @args: Argument vector
