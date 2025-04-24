@@ -226,6 +226,7 @@ README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
 - Echoing user input
+
 $ echo Hello, Shell!
 Hello, Shell!
 
@@ -252,9 +253,11 @@ drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77c
 drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-wsl-pro.service-KOA21N
 
 -   User interrupt using Ctrl+C
+
 $ ^C
 
 -   Shell exit using Ctrl+D
+
 $ (Press Ctrl+D)
 
 -   Exiting the shell using the exit command
