@@ -15,7 +15,7 @@ extern char **environ;
 
 /* main.c */
 void display_prompt(void);
-void sigint_handler(int sig);
+void handle_sigint(int sig);
 int handle_input(char *line, char **av);
 void handle_signal(int sig);
 
