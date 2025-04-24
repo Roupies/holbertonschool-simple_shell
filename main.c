@@ -3,13 +3,6 @@
 int last_exit_status;  /* Variable globale pour stocker le statut de sortie */
 
 
-void handle_sigint(int sig)
-{
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);
-	_exit(0);
-}
-
 /**
  * display_prompt - Print shell prompt
  */
@@ -108,7 +101,6 @@ int main(int ac, char **av)
 	ssize_t nread;
 
 	(void)ac;
-	signal(SIGINT, handle_sigint);
 
 	while (1)
 	{
