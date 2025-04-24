@@ -27,7 +27,7 @@ int execute_command(char **args, char *prog_name)
 	cmd_path = find_in_path(args[0]);
 	if (!cmd_path)
 	{
-		fprintf(stderr, "%s: %s: not found\n", prog_name, args[0]);
+		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, args[0]);
 		return (127);
 	}
 
