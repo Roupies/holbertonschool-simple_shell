@@ -218,24 +218,29 @@ $ ==1935==
 
 ## 8. Testing
 
+-   Listing files in the current directory
+
 $ ./hsh
 $ ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
-# (Check that output lists files in the current directory)
 
+- Echoing user input
 $ echo Hello, Shell!
 Hello, Shell!
-# (Ensure the shell can print user input correctly)
+
+- Direct path execution of ls
 
 $ /bin/ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
-# (Direct path execution should work the same as with `ls` command)
+
+-   Handling unknown command
 
 $ fauxcmd
 ./hsh: fauxcmd: not found
-# (The shell should properly handle unknown commands)
+
+-   Using ls -l to list directory contents
 
 $ ls -l /tmp
 total 24
@@ -245,18 +250,17 @@ drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77c
 drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-resolved.service-SwneRt
 drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-timesyncd.service-E5xVMw
 drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-wsl-pro.service-KOA21N
-# (Ensure the `ls -l` command works correctly)
 
+-   User interrupt using Ctrl+C
 $ ^C
-# (User interrupts the shell using Ctrl+C)
 
+-   Shell exit using Ctrl+D
 $ (Press Ctrl+D)
-# (Shell should exit gracefully when Ctrl+D is pressed)
+
+-   Exiting the shell using the exit command
 
 $ ./hsh
 $ exit
-# (Shell should exit gracefully when `exit` is typed)
-
 
 ---
 
