@@ -192,21 +192,20 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 
 user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 
-==1935== Memcheck, a memory error detector
-==1935== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==1935== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==1935== Command: ./hsh
-==1935==
-$
-$ ==1935==
-==1935== HEAP SUMMARY:
-==1935==     in use at exit: 0 bytes in 0 blocks
-==1935==   total heap usage: 2 allocs, 2 frees, 1,144 bytes allocated
-==1935==
-==1935== All heap blocks were freed -- no leaks are possible
-==1935==
-==1935== For lists of detected and suppressed errors, rerun with: -s
-==1935== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==7165== Memcheck, a memory error detector
+==7165== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==7165== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==7165== Command: ./hsh
+==7165==
+(¬‿¬)==7165==
+==7165== HEAP SUMMARY:
+==7165==     in use at exit: 0 bytes in 0 blocks
+==7165==   total heap usage: 2 allocs, 2 frees, 1,144 bytes allocated
+==7165==
+==7165== All heap blocks were freed -- no leaks are possible
+==7165==
+==7165== For lists of detected and suppressed errors, rerun with: -s
+==7165== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 ---
 
@@ -244,13 +243,12 @@ executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 (¬‿¬) ls -l /tmp
 
 total 24
-
-drwx------ 2 root root 4096 Apr 24 09:46 snap-private-tmp
-drwx------ 3 root root 4096 Apr 24 10:11 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-polkit.service-zmOuGi
-drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-logind.service-flwzrM
-drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-resolved.service-SwneRt
-drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-timesyncd.service-E5xVMw
-drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-wsl-pro.service-KOA21N
+drwx------ 2 root root 4096 Apr 25 10:51 snap-private-tmp
+drwx------ 3 root root 4096 Apr 25 11:26 systemd-private-e69f99f85613413598659327f77a2d4e-polkit.service-NSftRK
+drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-logind.service-uLW4k5
+drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-resolved.service-2UuoW0
+drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-timesyncd.service-oWj584
+drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f85613413598659327f77a2d4e-wsl-pro.service-LnjSRH
 
 -   User interrupt using Ctrl+C
 
