@@ -1,7 +1,7 @@
 
                                               --------------------PROJET SIMPLE SHELL--------------------------- 
 
-![GIF d'animation](./gif/"hsh animation.gif") 
+![GIF d'animation](./gif/hsh\ animation.gif) 
 
 
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
