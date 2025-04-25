@@ -158,7 +158,7 @@ List of allowed functions and system calls+
 
 This project includes a custom man page for the hsh shell.
 
-*       To view it, run:
+*   To view it, run:
 
 bash
 Copier le code
@@ -191,6 +191,7 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 3. Example Output:
 
 user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
+
 ==1935== Memcheck, a memory error detector
 ==1935== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
 ==1935== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
@@ -241,7 +242,9 @@ executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 -   Using ls -l to list directory contents
 
 (¬‿¬) ls -l /tmp
+
 total 24
+
 drwx------ 2 root root 4096 Apr 24 09:46 snap-private-tmp
 drwx------ 3 root root 4096 Apr 24 10:11 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-polkit.service-zmOuGi
 drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-logind.service-flwzrM
