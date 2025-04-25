@@ -1,8 +1,7 @@
 
                                               --------------------PROJET SIMPLE SHELL--------------------------- 
 
-<img src="https://drive.google.com/uc?id=1cJp6Na-4nIkbRBawCKKJBPtFPx_JYgKP"> 
-
+![Demo GIF](https://i.imgur.com/WgS8f7W.gif)
 
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
 Developed as part of the **Holberton School** curriculum.
