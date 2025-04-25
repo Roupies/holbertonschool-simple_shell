@@ -1,5 +1,5 @@
 
-                                              --------------------PROJET SIMPLE SHELL--------------------------- 
+Simple Shell 
 
 ![Demo GIF](https://i.imgur.com/WgS8f7W.gif)
 
@@ -216,8 +216,7 @@ Ubuntu 20.x (the environment used for development)
 
 ## 7. Flowchart
 
-
-    ---
+![Mon Image](./Image/"mon_image.png")
 
 ## 8. Testing
 
