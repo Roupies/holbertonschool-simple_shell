@@ -127,9 +127,9 @@ List of allowed functions and system calls+
 
 * Commandes supportée:
 
-$ ls
-$ /bin/ls
-$ echo Hello
+(¬‿¬) ls
+(¬‿¬) /bin/ls
+(¬‿¬) echo Hello
 $ cat shell.h
 
 Pour quitter : utilisez Ctrl+D (EOF) ou la commande exit.
