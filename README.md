@@ -1,4 +1,15 @@
-Simple_shell
+               
+  ██████  ██▓ ███▄ ▄███▓ ██▓███   ██▓    ▓█████      ██████  ██░ ██ ▓█████  ██▓     ██▓       
+▒██    ▒ ▓██▒▓██▒▀█▀ ██▒▓██░  ██▒▓██▒    ▓█   ▀    ▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒       
+░ ▓██▄   ▒██▒▓██    ▓██░▓██░ ██▓▒▒██░    ▒███      ░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░       
+  ▒   ██▒░██░▒██    ▒██ ▒██▄█▓▒ ▒▒██░    ▒▓█  ▄      ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░       
+▒██████▒▒░██░▒██▒   ░██▒▒██▒ ░  ░░██████▒░▒████▒   ▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒   
+▒ ▒▓▒ ▒ ░░▓  ░ ▒░   ░  ░▒▓▒░ ░  ░░ ▒░▓  ░░░ ▒░ ░   ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░   
+░ ░▒  ░ ░ ▒ ░░  ░      ░░▒ ░     ░ ░ ▒  ░ ░ ░  ░   ░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░   
+░  ░  ░   ▒ ░░      ░   ░░         ░ ░      ░      ░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░      
+      ░   ░         ░                ░  ░   ░  ░         ░   ░  ░  ░   ░  ░    ░  ░    ░  ░   
+                                                                                              
+
 
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
 Developed as part of the **Holberton School** curriculum.
@@ -24,10 +35,10 @@ Developed as part of the **Holberton School** curriculum.
 
 ## 1. 📘 Description
 
-This shell displays a prompt (`$`), reads user input, searches the command in the `PATH`, and executes the command if found. It works in both interactive (line-by-line) and non-interactive (e.g., script) modes.
+This shell displays a prompt (`(¬‿¬) `), reads user input, searches the command in the `PATH`, and executes the command if found. It works in both interactive (line-by-line) and non-interactive (e.g., script) modes.
 
 ### Features:
-- Displays a prompt (`$`)
+- Displays a prompt (`(¬‿¬) `)
 - Reads input using `getline`
 - Tokenizes the command line
 - Searches for commands in the `PATH`
@@ -130,7 +141,7 @@ List of allowed functions and system calls+
 (¬‿¬) ls
 (¬‿¬) /bin/ls
 (¬‿¬) echo Hello
-$ cat shell.h
+(¬‿¬) cat shell.h
 
 Pour quitter : utilisez Ctrl+D (EOF) ou la commande exit.
 
@@ -220,30 +231,30 @@ $ ==1935==
 
 -   Listing files in the current directory
 
-$ ./hsh
-$ ls
+(¬‿¬) ./hsh
+(¬‿¬) ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
 - Echoing user input
 
-$ echo Hello, Shell!
+(¬‿¬) echo Hello, Shell!
 Hello, Shell!
 
 - Direct path execution of ls
 
-$ /bin/ls
+(¬‿¬) /bin/ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
 -   Handling unknown command
 
-$ fauxcmd
+(¬‿¬) fauxcmd
 ./hsh: fauxcmd: not found
 
 -   Using ls -l to list directory contents
 
-$ ls -l /tmp
+(¬‿¬) ls -l /tmp
 total 24
 drwx------ 2 root root 4096 Apr 24 09:46 snap-private-tmp
 drwx------ 3 root root 4096 Apr 24 10:11 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-polkit.service-zmOuGi
@@ -254,16 +265,16 @@ drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77c
 
 -   User interrupt using Ctrl+C
 
-$ ^C
+(¬‿¬) ^C
 
 -   Shell exit using Ctrl+D
 
-$ (Press Ctrl+D)
+(¬‿¬) (Press Ctrl+D)
 
 -   Exiting the shell using the exit command
 
-$ ./hsh
-$ exit
+(¬‿¬) ./hsh
+(¬‿¬) exit
 
 ---
 
