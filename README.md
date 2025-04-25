@@ -19,8 +19,8 @@ Developed as part of the **Holberton School** curriculum.
 7. [Man Page]
 8. [Valgrind]
 9. [Flochart] 
-10. [Testing]  
-11. [License] 
+10.[Testing]  
+11.[License] 
 12.[Authors]
 
 ---
@@ -30,13 +30,14 @@ Developed as part of the **Holberton School** curriculum.
 This shell displays a prompt (`(¬‿¬) `), reads user input, searches the command in the `PATH`, and executes the command if found. It works in both interactive (line-by-line) and non-interactive (e.g., script) modes.
 
 ### Features:
+
 - Displays a prompt (`(¬‿¬) `)
-    - Reads input using `getline`
-    - Tokenizes the command line
-    - Searches for commands in the `PATH`
-    - Executes commands using `execve`
-    - Handles Ctrl+D to exit
-    - Prints an error if the command is not found
+- Reads input using `getline`
+- Tokenizes the command line
+- Searches for commands in the `PATH`
+- Executes commands using `execve`
+- Handles Ctrl+D to exit
+- Prints an error if the command is not found
 
 ---
 
@@ -44,26 +45,24 @@ This shell displays a prompt (`(¬‿¬) `), reads user input, searches the comm
 
 *   How to clone:
 
-    Step 1: Clone a repository, Git creates a local copy of it
+Step 1: Clone a repository, Git creates a local copy of it git clone 
 
-    git clone 
+Step 2: Set the push.autoSetupRemote option
 
-    Step 2: Set the push.autoSetupRemote option
+After clonning the repository, I can set this option to simplif future git push commands whan creating new branches 
 
-    After clonning the repository, I can set this option to simplif future git push commands whan creating new branches
+git config --global push.autoSetupRemote true
 
-    git config --global push.autoSetupRemote true
+Step 3: Create a branch and push it
 
-    Step 3: Create a branch and push it
+Create a new branch and push it for the first time, Git will automatically link that branch to the corresponding remote branch without requiring youto use --set-upstream.
 
-    Create a new branch and push it for the first time, Git will automatically link that branch to the corresponding remote branch without requiring you to use --set-upstream.
-
-    git checkout -b my-new-branch (Olivia) git push
+git checkout -b my-new-branch (Olivia) git push
 
 
 * How to compile:
 
-    gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 ---
 
@@ -71,9 +70,9 @@ This shell displays a prompt (`(¬‿¬) `), reads user input, searches the comm
 
 Ubuntu 20.x (the environment used for development)
 
-    GCC (GNU Compiler Collection) for compiling the C code
+GCC (GNU Compiler Collection) for compiling the C code
 
-    Git for version control and collaboration
+Git for version control and collaboration
 
 ---
 
@@ -139,19 +138,19 @@ List of allowed functions and system calls+
 
 ---
 
-## 5. Flies 
+## 5. Flies
 
-    |Files              | Description                                                             |
-    |-------------------|-------------------------------------------------------------------------|
-    | `README.md`       | Information about this repository                                       |
-    | `hsh`             | Executable file for the shell application                               |
-    | `executor.c`      | Handles command execution and process management                        |
-    | `main.c`          | Main function of this application                                       |
-    | `parser.c`        | For parsing and processing the user's input                             |
-    | `shell.h`         | List of used libraries and function prototypes                          |
-    | `path_utils.c`    | Utility functions for managing the PATH and directories                 |
-    | `string_utils1.c` | String manipulation functions (first set of utilities)                  |
-    | `string_utils2.c` | String manipulation functions (second set of utilities)
+| Files              | Description                                                             |
+|--------------------|-------------------------------------------------------------------------|
+| `README.md`        | Information about this repository                                       |
+| `hsh`              | Executable file for the shell application                               |
+| `executor.c`       | Handles command execution and process management                        |
+| `main.c`           | Main function of this application                                       |
+| `parser.c`         | For parsing and processing the user's input                             |
+| `shell.h`          | List of used libraries and function prototypes                          |
+| `path_utils.c`     | Utility functions for managing the PATH and directories                 |
+| `string_utils1.c`  | String manipulation functions (first set of utilities)                  |
+| `string_utils2.c`  | String manipulation functions (second set of utilities)                 |
 
 ---
 
@@ -216,52 +215,52 @@ $ ==1935==
 
 ## 9. Testing
 
-    -   Listing files in the current directory
+- Listing files in the current directory
 
-    (¬‿¬) ./hsh
-    (¬‿¬) ls
-    README.md   hsh     parser.c      shell.h         string_utils1.c
-    executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
+(¬‿¬) ./hsh
+(¬‿¬) ls
+README.md   hsh     parser.c      shell.h         string_utils1.c
+executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
-    - Echoing user input
+- Echoing user input
 
-    (¬‿¬) echo Hello, Shell!
-    Hello, Shell!
+(¬‿¬) echo Hello, Shell!
+Hello, Shell!
 
-    - Direct path execution of ls
+- Direct path execution of ls
 
-    (¬‿¬) /bin/ls
-    README.md   hsh     parser.c      shell.h         string_utils1.c
-    executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
+(¬‿¬) /bin/ls
+README.md   hsh     parser.c      shell.h         string_utils1.c
+executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
-    -   Handling unknown command
+-   Handling unknown command
 
-    (¬‿¬) fauxcmd
-    ./hsh: fauxcmd: not found
+(¬‿¬) fauxcmd
+./hsh: fauxcmd: not found
 
-    -   Using ls -l to list directory contents
+-   Using ls -l to list directory contents
 
-    (¬‿¬) ls -l /tmp
-    total 24
-    drwx------ 2 root root 4096 Apr 24 09:46 snap-private-tmp
-    drwx------ 3 root root 4096 Apr 24 10:11 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-polkit.service-zmOuGi
-    drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-logind.service-flwzrM
-    drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-resolved.service-SwneRt
-    drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-timesyncd.service-E5xVMw
-    drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-wsl-pro.service-KOA21N
+(¬‿¬) ls -l /tmp
+total 24
+drwx------ 2 root root 4096 Apr 24 09:46 snap-private-tmp
+drwx------ 3 root root 4096 Apr 24 10:11 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-polkit.service-zmOuGi
+drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-logind.service-flwzrM
+drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-resolved.service-SwneRt
+drwx------ 3 root root 4096 Apr 24 09:46 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-systemd-timesyncd.service-E5xVMw
+drwx------ 3 root root 4096 Apr 24 09:47 systemd-private-926a1793d4ff40c9934a77cefd6d78c5-wsl-pro.service-KOA21N
 
-    -   User interrupt using Ctrl+C
+-   User interrupt using Ctrl+C
 
-    (¬‿¬) ^C
+(¬‿¬) ^C
 
-    -   Shell exit using Ctrl+D
+-   Shell exit using Ctrl+D
 
 (¬‿¬) (Press Ctrl+D)
 
-    -   Exiting the shell using the exit command
+-   Exiting the shell using the exit command
 
-    (¬‿¬) ./hsh
-    (¬‿¬) exit
+(¬‿¬) ./hsh
+(¬‿¬) exit
 
 ---
 
@@ -272,7 +271,7 @@ Feel free to copy and paste this into your README.md file and make any adjustmen
 
 ---
 
-## 11. Authors 
+## 11. Authors
 
-    - Maxime : https://github.com/Roupies
-    - Olivia Letchy : https://github.com/Ravou
+- Maxime : https://github.com/Roupies
+- Olivia Letchy : https://github.com/Ravou
