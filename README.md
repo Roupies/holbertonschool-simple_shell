@@ -38,11 +38,11 @@ This shell displays a prompt (`(¬‿¬) `), reads user input, searches the comm
     - Handles Ctrl+D to exit
     - Prints an error if the command is not found
 
-    ---
+---
 
 ## 2. ⚙️ Installation
 
-    *   How to clone:
+*   How to clone:
 
     Step 1: Clone a repository, Git creates a local copy of it
 
@@ -61,11 +61,11 @@ This shell displays a prompt (`(¬‿¬) `), reads user input, searches the comm
     git checkout -b my-new-branch (Olivia) git push
 
 
-    *   How to compile:
+* How to compile:
 
     gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
-    ---
+---
 
 ## 3.   Requierement
 
@@ -75,69 +75,69 @@ Ubuntu 20.x (the environment used for development)
 
     Git for version control and collaboration
 
-    ---
+---
 
 ## 4.   Allowed Functions and System Calls
 
-    The project may only use the following functions and system calls:
+The project may only use the following functions and system calls:
 
-    List of allowed functions and system calls+
-    - all functions from string.h
-    - access (man 2 access)
-    - chdir (man 2 chdir)
-    - close (man 2 close)
-    - closedir (man 3 closedir)
-    - execve (man 2 execve)
-    - exit (man 3 exit)
-    - _exit (man 2 _exit)
-    - fflush (man 3 fflush)
-    - fork (man 2 fork)
-    - free (man 3 free)
-    - getcwd (man 3 getcwd)
-    - getline (man 3 getline)
-    - getpid (man 2 getpid)
-    - isatty (man 3 isatty)
-    - kill (man 2 kill)
-    - malloc (man 3 malloc)
-    - open (man 2 open)
-    - opendir (man 3 opendir)
-    - perror (man 3 perror)
-    - printf (man 3 printf)
-    - fprintf (man 3 fprintf)
-    - vfprintf (man 3 vfprintf)
-    - sprintf (man 3 sprintf)
-    - putchar (man 3 putchar)
-    - read (man 2 read)
-    - readdir (man 3 readdir)
-    - signal (man 2 signal)
-    - stat (__xstat) (man 2 stat)
-    - lstat (__lxstat) (man 2 lstat)
-    - fstat (__fxstat) (man 2 fstat)
-    - strtok (man 3 strtok)
-    - wait (man 2 wait)
-    - waitpid (man 2 waitpid)
-    - wait3 (man 2 wait3)
-    - wait4 (man 2 wait4)
+List of allowed functions and system calls+
+- all functions from string.h
+- access (man 2 access)
+- chdir (man 2 chdir)
+- close (man 2 close)
+- closedir (man 3 closedir)
+- execve (man 2 execve)
+- exit (man 3 exit)
+- _exit (man 2 _exit)
+- fflush (man 3 fflush)
+- fork (man 2 fork)
+- free (man 3 free)
+- getcwd (man 3 getcwd)
+- getline (man 3 getline)
+- getpid (man 2 getpid)
+- isatty (man 3 isatty)
+- kill (man 2 kill)
+- malloc (man 3 malloc)
+- open (man 2 open)
+- opendir (man 3 opendir)
+- perror (man 3 perror)
+- printf (man 3 printf)
+- fprintf (man 3 fprintf)
+- vfprintf (man 3 vfprintf)
+- sprintf (man 3 sprintf)
+- putchar (man 3 putchar)
+- read (man 2 read)
+- readdir (man 3 readdir)
+- signal (man 2 signal)
+- stat (__xstat) (man 2 stat)
+- lstat (__lxstat) (man 2 lstat)
+- fstat (__fxstat) (man 2 fstat)
+- strtok (man 3 strtok)
+- wait (man 2 wait)
+- waitpid (man 2 waitpid)
+- wait3 (man 2 wait3)
+- wait4 (man 2 wait4)
 - write (man 2 write)
 
-    ---
+---
 
 ## 4.   Usage Exemples
 
-    * Exécution du shell:
+*   Exécution du shell:
 
-    ./hsh
+./hsh
 
-    * Commandes supportée:
+*   Commandes supportée:
 
-    (¬‿¬) ls
-    (¬‿¬) /bin/ls
-    (¬‿¬) echo Hello
-    (¬‿¬) cat shell.h
+(¬‿¬) ls
+(¬‿¬) /bin/ls
+(¬‿¬) echo Hello
+(¬‿¬) cat shell.h
 
-    Pour quitter : utilisez Ctrl+D (EOF) ou la commande exit.
+    For quit : use Ctrl+D (EOF) or exit.
 
-    ---
+---
 
 ## 5. Flies 
 
@@ -151,74 +151,70 @@ Ubuntu 20.x (the environment used for development)
     | `shell.h`         | List of used libraries and function prototypes                          |
     | `path_utils.c`    | Utility functions for managing the PATH and directories                 |
     | `string_utils1.c` | String manipulation functions (first set of utilities)                  |
-| `string_utils2.c` | String manipulation functions (second set of utilities)
+    | `string_utils2.c` | String manipulation functions (second set of utilities)
 
-    ---
+---
 
-## 5. Man Page
+## 6. Man Page
 
-    This project includes a custom man page for the hsh shell.
+This project includes a custom man page for the hsh shell.
 
-    *       To view it, run:
+*       To view it, run:
 
-    bash
-    Copier le code
-    man ./hsh.1
-    The man page documents:
+bash
+Copier le code
+man ./hsh.1
+The man page documents:
 
-    *   How to launch the shell:
+*   How to launch the shell:
 
-    Supported features and usage
+Supported features and usage
+Example commands
+Return values
+Author information
 
-    Example commands
+It follows standard UNIX manual formatting and is located in the root of the repository as hsh.1.
 
-    Return values
+---
 
-    Author information
+## 7. Valgrinf
 
-    It follows standard UNIX manual formatting and is located in the root of the repository as hsh.1.
+*    How to use Valgrind
 
+1. First, compile your program an usual:
 
-    ---
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
-## 6. Valgrinf
+2. Run your shell program with Valgrind:
 
-    * How to use Valgrind
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 
-    1. First, compile your program an usual:
+3. Example Output:
 
-    gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
+==1935== Memcheck, a memory error detector
+==1935== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==1935== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==1935== Command: ./hsh
+==1935==
+$
+$ ==1935==
+==1935== HEAP SUMMARY:
+==1935==     in use at exit: 0 bytes in 0 blocks
+==1935==   total heap usage: 2 allocs, 2 frees, 1,144 bytes allocated
+==1935==
+==1935== All heap blocks were freed -- no leaks are possible
+==1935==
+==1935== For lists of detected and suppressed errors, rerun with: -s
+==1935== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
-    2. Run your shell program with Valgrind:
+---
 
-    valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
-
-    3. Example Output:
-
-    user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
-    ==1935== Memcheck, a memory error detector
-    ==1935== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-    ==1935== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-    ==1935== Command: ./hsh
-    ==1935==
-    $
-    $ ==1935==
-    ==1935== HEAP SUMMARY:
-    ==1935==     in use at exit: 0 bytes in 0 blocks
-    ==1935==   total heap usage: 2 allocs, 2 frees, 1,144 bytes allocated
-    ==1935==
-    ==1935== All heap blocks were freed -- no leaks are possible
-    ==1935==
-    ==1935== For lists of detected and suppressed errors, rerun with: -s
-    ==1935== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-
-    ---
-
-## 7. Flowchart
+## 8. Flowchart
 
 ![Mon Image](./Image/Flowchart.png)
 
-## 8. Testing
+## 9. Testing
 
     -   Listing files in the current directory
 
@@ -267,18 +263,16 @@ Ubuntu 20.x (the environment used for development)
     (¬‿¬) ./hsh
     (¬‿¬) exit
 
-    ---
+---
 
-## 9. License
+## 10. License
 
-    This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
+Feel free to copy and paste this into your README.md file and make any adjustments you need.
 
-    Feel free to copy and paste this into your README.md file and make any adjustments you need.
+---
 
-
-    ---
-
-## 10. Authors 
+## 11. Authors 
 
     - Maxime : https://github.com/Roupies
     - Olivia Letchy : https://github.com/Ravou
