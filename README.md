@@ -10,18 +10,19 @@ Developed as part of the **Holberton School** curriculum.
 
 ## 📑 Table of Contents
 
-1. [Introduction]  
-2. [Installatio]
+1. [Introduction]
+2. [Installation]
 3. [Prerequisites]
-4. [Allowed functions and System Calls]
-5. [Usages Examples] 
-6. [Files]  
+4. [Allowed Functions and System Calls]
+5. [Usage Examples]
+6. [Files]
 7. [Man Page]
 8. [Valgrind]
-9. [Flochart]
-10.[Testing]
-11.[License]
-12.[Authors]
+9. [Flowchart]
+10. [Testing]
+11. [License]
+12. [Authors]
+
 
 ---
 
