@@ -14,8 +14,8 @@ Developed as part of the **Holberton School** curriculum.
 2. [Installatio]
 3. [Prerequisites]
 4. [Allowed functions and System Calls]
-5. [Files] 
-6. [Usage Examples]  
+5. [Usages Examples] 
+6. [Files]  
 7. [Man Page]
 8. [Valgrind]
 9. [Flochart] 
@@ -121,7 +121,7 @@ List of allowed functions and system calls+
 
 ---
 
-## 4.   Usage Exemples
+## 5.   Usage Exemples
 
 *   Exécution du shell:
 
@@ -138,7 +138,7 @@ List of allowed functions and system calls+
 
 ---
 
-## 5. Flies
+## 6. Files
 
 | Files              | Description                                                             |
 |--------------------|-------------------------------------------------------------------------|
@@ -154,7 +154,7 @@ List of allowed functions and system calls+
 
 ---
 
-## 6. Man Page
+## 7. Man Page
 
 This project includes a custom man page for the hsh shell.
 
@@ -176,7 +176,7 @@ It follows standard UNIX manual formatting and is located in the root of the rep
 
 ---
 
-## 7. Valgrinf
+## 8. Valgrinf
 
 *    How to use Valgrind
 
@@ -222,11 +222,13 @@ user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --tra
 
 ---
 
-## 8. Flowchart
+## 9. Flowchart
 
 ![Mon Image](./Image/Flowchart.png)
 
-## 9. Testing
+---
+
+## 10. Testing
 
 - Listing files in the current directory
 
@@ -284,14 +286,14 @@ drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f8561341359865932
 
 ---
 
-## 10. License
+## 11. License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 Feel free to copy and paste this into your README.md file and make any adjustments you need.
 
 ---
 
-## 11. Authors
+## 12. Authors
 
 - Maxime : https://github.com/Roupies
 - Olivia Letchy : https://github.com/Ravou
