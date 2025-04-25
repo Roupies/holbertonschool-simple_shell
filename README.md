@@ -216,7 +216,7 @@ Ubuntu 20.x (the environment used for development)
 
 ## 7. Flowchart
 
-![Mon Image](./Image/"mon_image.png")
+![Mon Image](./Image/Flowchart.png)
 
 ## 8. Testing
 
