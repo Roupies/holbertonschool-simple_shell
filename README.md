@@ -193,18 +193,31 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 
 ==7165== Memcheck, a memory error detector
+
 ==7165== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+
 ==7165== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+
 ==7165== Command: ./hsh
+
 ==7165==
+
 (¬‿¬)==7165==
+
 ==7165== HEAP SUMMARY:
+
 ==7165==     in use at exit: 0 bytes in 0 blocks
+
 ==7165==   total heap usage: 2 allocs, 2 frees, 1,144 bytes allocated
+
 ==7165==
+
 ==7165== All heap blocks were freed -- no leaks are possible
+
 ==7165==
+
 ==7165== For lists of detected and suppressed errors, rerun with: -s
+
 ==7165== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 ---
@@ -243,11 +256,17 @@ executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 (¬‿¬) ls -l /tmp
 
 total 24
+
 drwx------ 2 root root 4096 Apr 25 10:51 snap-private-tmp
+
 drwx------ 3 root root 4096 Apr 25 11:26 systemd-private-e69f99f85613413598659327f77a2d4e-polkit.service-NSftRK
+
 drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-logind.service-uLW4k5
+
 drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-resolved.service-2UuoW0
+
 drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-timesyncd.service-oWj584
+
 drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f85613413598659327f77a2d4e-wsl-pro.service-LnjSRH
 
 -   User interrupt using Ctrl+C
