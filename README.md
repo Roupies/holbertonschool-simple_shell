@@ -18,9 +18,9 @@ Developed as part of the **Holberton School** curriculum.
 6. [Files]  
 7. [Man Page]
 8. [Valgrind]
-9. [Flochart] 
-10.[Testing]  
-11.[License] 
+9. [Flochart]
+10.[Testing]
+11.[License]
 12.[Authors]
 
 ---
