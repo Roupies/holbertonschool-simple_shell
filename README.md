@@ -255,9 +255,9 @@ executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 ```
 (¬‿¬) echo Hello, Shell!
 Hello, Shell!
-
-- Direct path execution of ls
 ```
+- Direct path execution of ls
+```cat 
 (¬‿¬) /bin/ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
@@ -270,6 +270,7 @@ executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 -   Using ls -l to list directory contents
 ```
 (¬‿¬) ls -l /tmp
+```
 ```
 total 24
 
