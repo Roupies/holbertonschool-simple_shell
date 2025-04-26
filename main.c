@@ -60,7 +60,7 @@ int handle_input(char *line, char **av)
 	}
 
 	/* Si l'utilisateur demande le code de sortie $? */
-	if (strcmp(args[0], "$?") == 0)
+	if (_strcmp(args[0], "$?") == 0)
 	{
 		printf("%d\n", last_exit_status);
 		free_args(args);
