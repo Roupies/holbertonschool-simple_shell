@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="./Image/Holberton.png" alt="Mon Image" width="300">
+  <img src="./Image/Holberton.png" alt="Mon Image" width="400">
 </p>
 
 
