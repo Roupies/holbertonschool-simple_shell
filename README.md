@@ -69,9 +69,9 @@ git checkout -b my-new-branch (Olivia) git push
 
 
 * How to compile:
-
+```
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
-
+```
 ---
 
 ## 3.   Requierement
