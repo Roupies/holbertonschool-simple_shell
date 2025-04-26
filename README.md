@@ -58,9 +58,9 @@ Step 1: Clone a repository, Git creates a local copy of it git clone
 Step 2: Set the push.autoSetupRemote option
 
 After clonning the repository, I can set this option to simplif future git push commands whan creating new branches 
-
+```
 git config --global push.autoSetupRemote true
-
+```
 Step 3: Create a branch and push it
 
 Create a new branch and push it for the first time, Git will automatically link that branch to the corresponding remote branch without requiring youto use --set-upstream.
@@ -131,18 +131,20 @@ List of allowed functions and system calls+
 
 ## 5.   Usage Exemples
 
-*   Exécution du shell:
-
+*   Shell Execution:
+```
 ./hsh
+```
 
-*   Commandes supportée:
-
+*   Supported commands:
+```
 (¬‿¬) ls
 (¬‿¬) /bin/ls
 (¬‿¬) echo Hello
 (¬‿¬) cat shell.h
+```
 
-For quit : use Ctrl+D (EOF) or exit.
+To quit : use Ctrl+D (EOF) or exit.
 
 ---
 
@@ -170,7 +172,9 @@ This project includes a custom man page for the hsh shell.
 
 bash
 Copier le code
+```
 man ./hsh.1
+```
 The man page documents:
 
 *   How to launch the shell:
@@ -189,17 +193,17 @@ It follows standard UNIX manual formatting and is located in the root of the rep
 *    How to use Valgrind
 
 1. First, compile your program an usual:
-
+```
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
-
+```
 2. Run your shell program with Valgrind:
-
+```
 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
-
+```
 3. Example Output:
-
+```
 user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
-
+```
 ==7165== Memcheck, a memory error detector
 
 ==7165== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
@@ -239,34 +243,34 @@ user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --tra
 ## 10. Testing
 
 - Listing files in the current directory
-
+```
 (¬‿¬) ./hsh
 
 (¬‿¬) ls
 
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
-
+```
 - Echoing user input
-
+```
 (¬‿¬) echo Hello, Shell!
 Hello, Shell!
 
 - Direct path execution of ls
-
+```
 (¬‿¬) /bin/ls
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
-
+```
 -   Handling unknown command
-
+```
 (¬‿¬) fauxcmd
 ./hsh: fauxcmd: not found
-
+```
 -   Using ls -l to list directory contents
-
+```
 (¬‿¬) ls -l /tmp
-
+```
 total 24
 
 drwx------ 2 root root 4096 Apr 25 10:51 snap-private-tmp
@@ -280,20 +284,20 @@ drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f8561341359865932
 drwx------ 3 root root 4096 Apr 25 10:51 systemd-private-e69f99f85613413598659327f77a2d4e-systemd-timesyncd.service-oWj584
 
 drwx------ 3 root root 4096 Apr 25 10:53 systemd-private-e69f99f85613413598659327f77a2d4e-wsl-pro.service-LnjSRH
-
+```
 -   User interrupt using Ctrl+C
-
+```
 (¬‿¬) ^C
-
+```
 -   Shell exit using Ctrl+D
-
+```
 (¬‿¬) (Press Ctrl+D)
-
+```
 -   Exiting the shell using the exit command
-
+```
 (¬‿¬) ./hsh
 (¬‿¬) exit
-
+```
 ---
 
 ## 11. License
