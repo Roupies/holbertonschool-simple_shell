@@ -241,7 +241,9 @@ user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --tra
 - Listing files in the current directory
 
 (¬‿¬) ./hsh
+
 (¬‿¬) ls
+
 README.md   hsh     parser.c      shell.h         string_utils1.c
 executor.c  main.c  path_utils.c  string_utils.c  string_utils2.c
 
