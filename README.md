@@ -142,7 +142,7 @@ List of allowed functions and system calls+
 (¬‿¬) echo Hello
 (¬‿¬) cat shell.h
 
-    For quit : use Ctrl+D (EOF) or exit.
+For quit : use Ctrl+D (EOF) or exit.
 
 ---
 
