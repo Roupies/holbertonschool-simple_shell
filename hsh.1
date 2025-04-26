@@ -1,0 +1,119 @@
+.\" Manpage for hsh
+.TH HSH 1 "26 April 2025" "v1.0" "Holberton Simple Shell"
+.SH NAME
+hsh \- minimalist UNIX-like command-line interpreter
+
+.SH SYNOPSIS
+.B hsh
+[\fIoptions\fR] [\fIscript-file\fR]
+
+.SH DESCRIPTION
+The
+.B hsh
+program is a simple shell that reads and executes commands from standard input or from a script file. It mimics basic POSIX shell behavior:
+
+.IP “•” 2
+Displays a prompt when run interactively.
+
+.IP “•” 2
+Parses each input line into a command and zero or more arguments.
+
+.IP “•” 2
+Searches for executable programs in the directories listed in the \fIPATH\fR environment variable.
+
+.IP “•” 2
+Executes external commands with
+.B execve(2)
+in a child process created by
+.B fork(2).
+
+.IP “•” 2
+Supports a small set of built-in commands: \fIexit\fR and \fIenv\fR, plus the special parameter \fI$?\fR for the last exit status.
+
+.IP “•” 2
+Handles end-of-file (Ctrl+D) and interrupts (Ctrl+C) gracefully.
+
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB--help\fR
+Display a short usage summary and exit.
+
+.TP
+\fB\-v\fR, \fB--version\fR
+Print the shell version (v1.0) and exit.
+
+.SH BUILTIN COMMANDS
+.TP
+\fBexit [\fIstatus\fR]\fR
+Terminate the shell. If \fIstatus\fR is provided, return that status; otherwise, return the status of the last executed command.
+
+.TP
+\fIenv\fR
+Print all environment variables, one per line, in the form \fIKEY=VALUE\fR.
+
+.TP
+\fI$?\fR
+When entered as the sole “command,” print the exit status of the most recently executed command.
+
+.SH ENVIRONMENT
+.TP
+\fIPATH\fR
+A colon-separated list of directories in which to search for executable commands. If not set, no external commands will be found.
+
+.SH FILES
+.TP
+\fI/etc/profile\fR
+System-wide initialization file (not used by hsh by default).
+
+.TP
+\fI~/.hshrc\fR
+User initialization file (not implemented in this version).
+
+.SH EXIT STATUS
+.TP
+0
+Success (no errors and user did not signal exit).
+
+.TP
+>0
+If a built-in or external command exits with a non-zero status, that status is returned.  
+126 — Command found but not executable (permission denied).  
+127 — Command not found.  
+128+n — Command terminated by signal n.
+
+.SH SIGNALS
+.TP
+\fBCtrl+C\fR (SIGINT)
+Interrupts the current input; prompt is redisplayed.  
+\fBCtrl+D\fR (EOF)
+End-of-file: shell exits, returning the last command’s status.
+
+.SH EXAMPLES
+.TP
+Run interactively:
+.IP
+.RS
+\$ hsh
+(¬‿¬) ls -l
+(¬‿¬) env
+(¬‿¬) exit 42
+.RE
+
+.TP
+Execute commands from a file:
+.IP
+.RS
+\$ hsh batch_commands.sh
+.RE
+
+.SH AUTHORS
+Maxime Roupies \<https://github.com/Roupies\>,  
+Olivia Letchy \<https://github.com/Ravou\>.
+
+.SH BUGS
+Report bugs and feature requests to  
+\<https://github.com/Ravou/holbertonschool-simple_shell/issues\>.
+
+.SH COPYRIGHT
+MIT License — see the LICENSE file in the project root for details.
+
