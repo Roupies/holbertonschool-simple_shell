@@ -64,9 +64,9 @@ git config --global push.autoSetupRemote true
 Step 3: Create a branch and push it
 
 Create a new branch and push it for the first time, Git will automatically link that branch to the corresponding remote branch without requiring youto use --set-upstream.
-
+```
 git checkout -b my-new-branch (Olivia) git push
-
+```
 
 * How to compile:
 ```
