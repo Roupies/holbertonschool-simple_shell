@@ -170,8 +170,6 @@ This project includes a custom man page for the hsh shell.
 
 *   To view it, run:
 
-bash
-Copier le code
 ```
 man ./hsh.1
 ```
@@ -203,7 +201,7 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
 3. Example Output:
 ```
 user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./hsh
-```
+
 ==7165== Memcheck, a memory error detector
 
 ==7165== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
@@ -231,7 +229,7 @@ user@host:~/simple_shell$ valgrind --leak-check=full --show-leak-kinds=all --tra
 ==7165== For lists of detected and suppressed errors, rerun with: -s
 
 ==7165== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-
+```
 ---
 
 ## 9. Flowchart
