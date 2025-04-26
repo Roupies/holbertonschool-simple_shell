@@ -153,7 +153,7 @@ For quit : use Ctrl+D (EOF) or exit.
 | `README.md`        | Information about this repository                                       |
 | `hsh`              | Executable file for the shell application                               |
 | `executor.c`       | Handles command execution and process management                        |
-| `main.c`           | Main function of this application                                       |
+| `main.c`           | Main loop, prompt handling, and user input management                   |
 | `parser.c`         | For parsing and processing the user's input                             |
 | `shell.h`          | List of used libraries and function prototypes                          |
 | `path_utils.c`     | Utility functions for managing the PATH and directories                 |
