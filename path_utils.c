@@ -17,7 +17,7 @@ char *_get_path(void)
 	for (i = 0; environ[i]; i++)
 	{
 		/* Cherche "PATH=" dans chaque élément de environ */
-		if (strncmp(environ[i], "PATH=", 5) == 0)
+		if (_strncmp(environ[i], "PATH=", 5) == 0)
 			return (environ[i] + 5); /* Retourne la chaîne après "PATH=" */
 	}
 	return (NULL);
@@ -37,7 +37,7 @@ char *find_in_path(char *command)
 
 	/* Si la commande contient déjà un '/' (chemin absolu), on la retourne telle quelle */
 	if (_strchr(command, '/'))
-		return (strdup(command));
+		return (_strdup(command));
 
 	/* Récupère le PATH dans l'environnement */
 	path = _get_path();
@@ -45,7 +45,7 @@ char *find_in_path(char *command)
 		return (NULL);
 
 	/* Crée une copie du PATH pour la découper */
-	path_copy = strdup(path);
+	path_copy = _strdup(path);
 	if (!path_copy)
 		return (NULL);
 

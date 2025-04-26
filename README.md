@@ -74,7 +74,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
 ---
 
-## 3.   Requierement
+## 3.   Requirements
 
 Ubuntu 20.x (the environment used for development)
 
