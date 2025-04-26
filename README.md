@@ -1,5 +1,8 @@
 
-![Mon Image](./Image/Holberton.png)
+<p align="center">
+  <img src="./Image/Holberton.png" alt="Mon Image" width="300">
+</p>
+
 
 
 Simple Shell Project
