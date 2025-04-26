@@ -1,10 +1,15 @@
 
-Simple Shell 
+![Mon Image](./Image/Holberton.png)
 
-![Demo GIF](https://i.imgur.com/WgS8f7W.gif)
+
+                         Simple Shell Project
+
+
 
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
 Developed as part of the **Holberton School** curriculum.
+
+![Demo GIF](https://i.imgur.com/WgS8f7W.gif)
 
 ---
 
@@ -177,7 +182,7 @@ It follows standard UNIX manual formatting and is located in the root of the rep
 
 ---
 
-## 8. Valgrinf
+## 8. Valgrind
 
 *    How to use Valgrind
 
