@@ -2,8 +2,7 @@
 ![Mon Image](./Image/Holberton.png)
 
 
-                         Simple Shell Project
-
+Simple Shell Project
 
 
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
