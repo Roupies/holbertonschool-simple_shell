@@ -11,7 +11,7 @@ Simple Shell Project
 A minimalist command-line interpreter written in C that mimics basic UNIX shell behavior.  
 Developed as part of the **Holberton School** curriculum.
 
-![Demo GIF](https://i.imgur.com/WgS8f7W.gif)
+![Demo GIF](https://imgur.com/a/VQ3o2Dy)
 
 ---
 
