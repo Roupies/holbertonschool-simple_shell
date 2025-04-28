@@ -1,119 +1,113 @@
-.\" Manpage for hsh
-.TH HSH 1 "26 April 2025" "v1.0" "Holberton Simple Shell"
+.TH HSH 1 "2025-04-26" "v1.0" "User Commands"
 .SH NAME
-hsh \- minimalist UNIX-like command-line interpreter
-
+hsh \- simple POSIX-compatible shell
 .SH SYNOPSIS
 .B hsh
-[\fIoptions\fR] [\fIscript-file\fR]
-
+.RI [ SCRIPT ]
 .SH DESCRIPTION
-The
 .B hsh
-program is a simple shell that reads and executes commands from standard input or from a script file. It mimics basic POSIX shell behavior:
+is a minimal interactive shell that reads and executes commands from standard input or from a script file. It supports basic POSIX command execution, simple built-ins, and environment variable lookup.
 
-.IP “•” 2
-Displays a prompt when run interactively.
-
-.IP “•” 2
-Parses each input line into a command and zero or more arguments.
-
-.IP “•” 2
-Searches for executable programs in the directories listed in the \fIPATH\fR environment variable.
-
-.IP “•” 2
-Executes external commands with
-.B execve(2)
-in a child process created by
-.B fork(2).
-
-.IP “•” 2
-Supports a small set of built-in commands: \fIexit\fR and \fIenv\fR, plus the special parameter \fI$?\fR for the last exit status.
-
-.IP “•” 2
-Handles end-of-file (Ctrl+D) and interrupts (Ctrl+C) gracefully.
+.PP
+Features:
+.IP \[bu] 2
+Displays a prompt (\fB$\fR) when running interactively.
+.IP \[bu] 2
+Reads and parses input lines into commands and arguments.
+.IP \[bu] 2
+Searches for executables in directories listed in the \fBPATH\fR environment variable.
+.IP \[bu] 2
+Executes external commands in a child process using \fBfork\fR(2) and \fBexecve\fR(2).
+.IP \[bu] 2
+Supports built-in commands: \fBexit\fR, \fBenv\fR, and the special parameter \fB$?\fR.
+.IP \[bu] 2
+Handles end-of-file (Ctrl+D) and interrupt (Ctrl+C) signals gracefully.
+.IP \[bu] 2
+Returns appropriate exit statuses for command errors and signals.
 
 .SH OPTIONS
 .TP
-\fB\-h\fR, \fB--help\fR
-Display a short usage summary and exit.
-
+.BR \-h ", " --help
+Display usage summary and exit.
 .TP
-\fB\-v\fR, \fB--version\fR
-Print the shell version (v1.0) and exit.
+.BR \-v ", " --version
+Print shell version and exit.
 
-.SH BUILTIN COMMANDS
+.SH BUILT-IN COMMANDS
 .TP
-\fBexit [\fIstatus\fR]\fR
-Terminate the shell. If \fIstatus\fR is provided, return that status; otherwise, return the status of the last executed command.
+.B exit [status]
+Exit the shell. If \fIstatus\fR is provided, return that status; otherwise, return the status of the last executed command.
+.TP
+.B env
+Print all environment variables in \fBKEY=VALUE\fR format, one per line.
+.TP
+.B $?
+When entered as the sole command, prints the exit status of the most recently executed command.
 
-.TP
-\fIenv\fR
-Print all environment variables, one per line, in the form \fIKEY=VALUE\fR.
-
-.TP
-\fI$?\fR
-When entered as the sole “command,” print the exit status of the most recently executed command.
+.SH COMMAND EXECUTION
+If the command is a built-in, it is executed directly. Otherwise, the shell searches each directory in \fBPATH\fR for the executable. If found an executable, the command is run in a child process. The exit status is stored and available via \fB$?\fR.
 
 .SH ENVIRONMENT
 .TP
-\fIPATH\fR
-A colon-separated list of directories in which to search for executable commands. If not set, no external commands will be found.
-
-.SH FILES
-.TP
-\fI/etc/profile\fR
-System-wide initialization file (not used by hsh by default).
-
-.TP
-\fI~/.hshrc\fR
-User initialization file (not implemented in this version).
+.B PATH
+Colon-separated list of directories to search for executables. If unset, only built-ins can be executed.
 
 .SH EXIT STATUS
-.TP
-0
-Success (no errors and user did not signal exit).
-
-.TP
->0
-If a built-in or external command exits with a non-zero status, that status is returned.  
-126 — Command found but not executable (permission denied).  
-127 — Command not found.  
-128+n — Command terminated by signal n.
+.TS
+l l.
+0        Success
+126      Command found but not executable (permission denied)
+127      Command not found
+128+n    Command terminated by signal n
+.TE
 
 .SH SIGNALS
 .TP
-\fBCtrl+C\fR (SIGINT)
-Interrupts the current input; prompt is redisplayed.  
-\fBCtrl+D\fR (EOF)
-End-of-file: shell exits, returning the last command’s status.
+.B Ctrl+C (SIGINT)
+Interrupts current input; prompt is redisplayed.
+.TP
+.B Ctrl+D (EOF)
+Exits the shell, returning the last command’s status.
+
+.SH FILES
+.TP
+.B /etc/profile
+System-wide initialization file (not used)
+.TP
+.B ~/.hshrc
+User initialization file (not implemented)
 
 .SH EXAMPLES
 .TP
-Run interactively:
-.IP
-.RS
-\$ hsh
-(¬‿¬) ls -l
-(¬‿¬) env
-(¬‿¬) exit 42
-.RE
-
+Interactive session:
+.nf
+$ hsh
+$ ls -l
+$ env
+$ exit 42
+.fi
 .TP
-Execute commands from a file:
-.IP
-.RS
-\$ hsh batch_commands.sh
-.RE
+Batch mode:
+.nf
+$ hsh batch_commands.sh
+.fi
+
+.SH SEE ALSO
+.BR sh (1),
+.BR bash (1),
+.BR dash (1),
+.BR execve (2),
+.BR fork (2)
 
 .SH AUTHORS
-Maxime Roupies \<https://github.com/Roupies\>,  
-Olivia Letchy \<https://github.com/Ravou\>.
+Olivia Letchy <https://github.com/Ravou>
+.br
+Maxime Naguet <https://github.com/Roupies>
 
 .SH BUGS
-Report bugs and feature requests to  
-\<https://github.com/Ravou/holbertonschool-simple_shell/issues\>.
+Report bugs and feature requests at
+<https://github.com/Ravou/holbertonschool-simple_shell/issues>
 
 .SH COPYRIGHT
-MIT License — see the LICENSE file in the project root for details.
+MIT License \- see the LICENSE file in the project root for details.
 

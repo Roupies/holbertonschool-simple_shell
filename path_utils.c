@@ -1,14 +1,9 @@
 #include "shell.h"
-#include <stddef.h> /* Pour définir size_t */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>  /* Ajouté pour l'utilisation de access() */
 
 /**
- * _get_path - Récupère la variable d'environnement PATH
+ * _get_path - Retrieves the PATH environment variable
  *
- * Return: Un pointeur vers la chaîne PATH, ou NULL si non trouvée
+ * Return: A pointer to the PATH string, or NULL if not found
  */
 char *_get_path(void)
 {
@@ -16,68 +11,68 @@ char *_get_path(void)
 
 	for (i = 0; environ[i]; i++)
 	{
-		/* Cherche "PATH=" dans chaque élément de environ */
+		/* Look for "PATH=" in each element of environ */
 		if (_strncmp(environ[i], "PATH=", 5) == 0)
-			return (environ[i] + 5); /* Retourne la chaîne après "PATH=" */
+			return (environ[i] + 5); /* Return the string after "PATH=" */
 	}
 	return (NULL);
 }
 
 /**
- * find_in_path - Recherche une commande dans les répertoires définis dans PATH
- * @command: Le nom de la commande à rechercher
+ * find_in_path - Searches for a command in the directories listed in PATH
+ * @command: The name of the command to search for
  *
- * Return: Le chemin absolu de la commande si trouvée (doit être libéré),
- *         ou NULL si la commande n'est pas trouvée
+ * Return: The absolute path of the command if found (must be freed),
+ *         or NULL if the command is not found
  */
 char *find_in_path(char *command)
 {
 	char *path, *path_copy, *token, *full_path;
 	size_t len;
 
-	/* Si la commande contient déjà un '/' (chemin absolu), on la retourne telle quelle */
+	/* If the command already contains a '/', return it as-is */
 	if (_strchr(command, '/'))
 		return (_strdup(command));
 
-	/* Récupère le PATH dans l'environnement */
+	/* Retrieve the PATH from the environment */
 	path = _get_path();
 	if (!path)
 		return (NULL);
 
-	/* Crée une copie du PATH pour la découper */
+	/* Create a copy of PATH to split it */
 	path_copy = _strdup(path);
 	if (!path_copy)
 		return (NULL);
 
-	/* Découpe le PATH par ":" pour itérer sur chaque répertoire */
+	/* Split PATH by ":" to iterate over each directory */
 	token = strtok(path_copy, ":");
 	while (token)
 	{
-		/* Alloue de la mémoire pour construire le chemin complet */
-		len = _strlen(token) + _strlen(command) + 2; /* +1 pour le '/' et +1 pour '\0' */
+		/* Allocate memory to build the full path */
+		len = _strlen(token) + _strlen(command) + 2; /* +1 for '/' and +1 for '\0' */
 		full_path = malloc(len);
 		if (!full_path)
 		{
 			free(path_copy);
-			return (NULL); /* Libère path_copy et retourne NULL en cas d'erreur */
+			return (NULL); /* Free path_copy and return NULL on error */
 		}
 
-		/* Concatène le chemin du répertoire avec la commande */
+		/* Concatenate the directory path with the command */
 		_strcpy(full_path, token);
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
 
-		/* Vérifie si le fichier existe et est exécutable */
+		/* Check if the file exists and is executable */
 		if (access(full_path, F_OK) == 0 && access(full_path, X_OK) == 0)
 		{
-			free(path_copy); /* Libère path_copy dès que le chemin est trouvé */
-			return (full_path); /* Retourne le chemin complet de la commande */
+			free(path_copy); /* Free path_copy once the path is found */
+			return (full_path); /* Return the full command path */
 		}
 
-		free(full_path); /* Libère full_path si la commande n'est pas trouvée dans ce répertoire */
-		token = strtok(NULL, ":"); /* Passe au répertoire suivant */
+		free(full_path); /* Free full_path if the command is not found in this directory */
+		token = strtok(NULL, ":"); /* Move to the next directory */
 	}
-	free(path_copy); /* Libère la copie de PATH une fois qu'on a fini */
-	return (NULL); /* Retourne NULL si la commande n'a pas été trouvée */
+	free(path_copy); /* Free the copy of PATH once done */
+	return (NULL); /* Return NULL if the command was not found */
 }
 
